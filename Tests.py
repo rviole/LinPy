@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from production.Tools import Vector, Matrix, is_dependent
+from VectorTools import Vector, Matrix, is_dependent
 
 
 # Vectors
