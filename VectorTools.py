@@ -3,6 +3,44 @@ from typing import Optional
 from IPython.display import display, Math
 
 
+def validate_input(input_data, raise_exception=True) -> bool:
+    if not input_data:
+        if raise_exception:
+            raise ValueError("No input provided.")
+        return False
+    return True
+
+
+def validate_equal_shapes(*vectors, raise_exception=True) -> bool:
+    if not vectors:
+        raise ValueError("No input provided.")
+
+    vectors = [Vector(v) if not isinstance(v, Vector) else v for v in vectors]
+    if all(v.shape == vectors[0].shape for v in vectors):
+        return True
+    else:
+        if raise_exception:
+            raise ValueError("Shapes of all vectors must be equal.")
+        return False
+
+
+def decorator_validate_inputs(func):
+    def wrapper(*args, **kwargs):
+        if not args:
+            raise ValueError("No input provided.")
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
+def decorator_validate_shapes(func):
+    def wrapper(*args, **kwargs):
+        validate_equal_shapes(*args)
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
 class Vector(np.ndarray):
     """
     A class representing a mathematical vector that inherits from numpy.ndarray.
@@ -63,6 +101,8 @@ class Vector(np.ndarray):
             return f"Vector({', '.join(map(str, self))})"
 
     def add_vector(self, vector):
+        validate_input(vector)
+
         base_vector = self
 
         # Ensure 'vector' is a Vector instance
@@ -79,6 +119,7 @@ class Vector(np.ndarray):
         return Vector(base_vector + vector)
 
     def subtract_vector(self, vector):
+        validate_input(vector)
         base_vector = self
 
         # Ensure 'vector' is a Vector instance
@@ -94,53 +135,13 @@ class Vector(np.ndarray):
         # Perform subtraction and return a new Vector instance
         return Vector(base_vector - vector)
 
-    def scalar_multiply(self, scalar: int | float):
+    def scalar_multiply(self, scalar: int | float = 1.0):
         base_vector = self
 
         if not isinstance(scalar, (int, float)):
             raise TypeError(f"`scalar` must be of type `int|float`, got {type(scalar)}")
 
         return Vector(base_vector * scalar)
-
-
-def validate_input(input_data, raise_exception=True) -> bool:
-    if not input_data:
-        if raise_exception:
-            raise ValueError("No input provided.")
-        return False
-    return True
-
-
-# finish this function,e xcpetion handling
-def validate_equal_shapes(*vectors, raise_exception=True) -> bool:
-    if not vectors:
-        raise ValueError("No input provided.")
-
-    vectors = [Vector(v) if not isinstance(v, Vector) else v for v in vectors]
-    if all(v.shape == vectors[0].shape for v in vectors):
-        return True
-    else:
-        if raise_exception:
-            raise ValueError("Shapes of all vectors must be equal.")
-        return False
-
-
-def decorator_validate_inputs(func):
-    def wrapper(*args, **kwargs):
-        if not args:
-            raise ValueError("No input provided.")
-        return func(*args, **kwargs)
-
-    return wrapper
-
-
-# finish this function, exception handling
-def decorator_validate_shapes(func):
-    def wrapper(*args, **kwargs):
-        validate_equal_shapes(*args)
-        return func(*args, **kwargs)
-
-    return wrapper
 
 
 @decorator_validate_inputs
@@ -210,8 +211,3 @@ def find_span(*basis_vectors) -> dict:
 @decorator_validate_shapes
 def is_basis(*vectors) -> bool:
     return not is_dependent(*vectors)
-
-
-v1 = Vector([1, 2, 3])
-v2 = Vector([4, 5, 6])
-print(is_basis())
