@@ -103,17 +103,29 @@ class Vector(np.ndarray):
         return Vector(base_vector * scalar)
 
 
-def have_equal_shapes(*vectors) -> bool:
+def validate_input(input_data, raise_exception=True) -> bool:
+    if not input_data:
+        if raise_exception:
+            raise ValueError("No input provided.")
+        return False
+    return True
+
+
+# finish this function,e xcpetion handling
+def validate_equal_shapes(*vectors, raise_exception=True) -> bool:
     if not vectors:
         raise ValueError("No input provided.")
 
     vectors = [Vector(v) if not isinstance(v, Vector) else v for v in vectors]
+    if all(v.shape == vectors[0].shape for v in vectors):
+        return True
+    else:
+        if raise_exception:
+            raise ValueError("Shapes of all vectors must be equal.")
+        return False
 
-    check = all(v.shape == vectors[0].shape for v in vectors)
-    return check
 
-
-def validate_inputs(func):
+def decorator_validate_inputs(func):
     def wrapper(*args, **kwargs):
         if not args:
             raise ValueError("No input provided.")
@@ -122,16 +134,17 @@ def validate_inputs(func):
     return wrapper
 
 
-def validate_shapes(func):
+# finish this function, exception handling
+def decorator_validate_shapes(func):
     def wrapper(*args, **kwargs):
-        if not have_equal_shapes(*args):
-            raise ValueError("Shapes of all vectors must be equal.")
+        validate_equal_shapes(*args)
         return func(*args, **kwargs)
 
     return wrapper
 
-@validate_inputs
-@validate_shapes
+
+@decorator_validate_inputs
+@decorator_validate_shapes
 def is_dependent(*vectors) -> bool:
     if not vectors:
         raise ValueError("No input provided.")
@@ -144,9 +157,12 @@ def is_dependent(*vectors) -> bool:
 
     return bool(rank < vector_num)
 
-@validate_inputs(3212)
-@validate_shapes
+
+@decorator_validate_shapes
 def find_linear_combination(target_vector, *vectors) -> Optional[np.ndarray]:
+    validate_input(target_vector)
+    validate_input(vectors)
+
     vectors = [Vector(v) if not isinstance(v, Vector) else v for v in vectors]
     matrix = np.column_stack(vectors)
     try:
@@ -164,8 +180,9 @@ def find_linear_combination(target_vector, *vectors) -> Optional[np.ndarray]:
         print(f"An error occurred: {e}")
         return None  # In case of any numerical errors
 
-@validate_inputs
-@validate_shapes
+
+@decorator_validate_inputs
+@decorator_validate_shapes
 def find_span(*basis_vectors) -> dict:
     vectors = [Vector(v) if not isinstance(v, Vector) else v for v in basis_vectors]
     matrix = np.column_stack(vectors)
@@ -188,7 +205,13 @@ def find_span(*basis_vectors) -> dict:
 
     return output
 
-@validate_inputs
-@validate_shapes
+
+@decorator_validate_inputs
+@decorator_validate_shapes
 def is_basis(*vectors) -> bool:
     return not is_dependent(*vectors)
+
+
+v1 = Vector([1, 2, 3])
+v2 = Vector([4, 5, 6])
+print(is_basis())
