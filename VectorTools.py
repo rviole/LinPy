@@ -3,16 +3,14 @@ from typing import Optional
 from BaseTools import (
     Vector,
     validate_input,
-    decorator_validate_inputs,
-    decorator_validate_shapes,
+    validate_equal_shapes,
 )
 
 
-@decorator_validate_inputs
-@decorator_validate_shapes
 def is_dependent(*vectors) -> bool:
-    if not vectors:
-        raise ValueError("No input provided.")
+
+    validate_input(vectors)
+    validate_equal_shapes(*vectors)  # Check if all vectors have the same shape
 
     vectors = [Vector(v) if not isinstance(v, Vector) else v for v in vectors]
     matrix = np.column_stack(vectors)
@@ -23,10 +21,14 @@ def is_dependent(*vectors) -> bool:
     return bool(rank < vector_num)
 
 
-@decorator_validate_shapes
 def find_linear_combination(target_vector, *vectors) -> Optional[np.ndarray]:
     validate_input(target_vector)
     validate_input(vectors)
+
+    validate_equal_shapes(*vectors)  # Check if all vectors have the same shape
+    validate_equal_shapes(
+        target_vector, vectors[0]
+    )  # Check if the target vector has the same shape as the basis vectors
 
     vectors = [Vector(v) if not isinstance(v, Vector) else v for v in vectors]
     matrix = np.column_stack(vectors)
@@ -46,9 +48,10 @@ def find_linear_combination(target_vector, *vectors) -> Optional[np.ndarray]:
         return None  # In case of any numerical errors
 
 
-@decorator_validate_inputs
-@decorator_validate_shapes
 def find_span(*basis_vectors) -> dict:
+    validate_input(basis_vectors)
+    validate_equal_shapes(*basis_vectors)  # Check if all vectors have the same shape
+
     vectors = [Vector(v) if not isinstance(v, Vector) else v for v in basis_vectors]
     matrix = np.column_stack(vectors)
 
@@ -71,7 +74,8 @@ def find_span(*basis_vectors) -> dict:
     return output
 
 
-@decorator_validate_inputs
-@decorator_validate_shapes
 def is_basis(*vectors) -> bool:
+    validate_input(vectors)
+    validate_equal_shapes(*vectors)  # Check if all vectors have the same shape
+
     return not is_dependent(*vectors)
