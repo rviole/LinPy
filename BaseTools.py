@@ -3,13 +3,15 @@ from IPython.display import display, Math
 
 np.random.seed(42)
 
+
 # checks if any of the input data is None
 def validate_input(*input_data, raise_exception=True) -> bool:
-    if any( each is None for each in input_data):
+    if any(each is None for each in input_data):
         if raise_exception:
             raise ValueError("No input provided.")
         return False
     return True
+
 
 # note her that data must be an iterable of numpy array-like objects
 def validate_equal_shapes(*data, raise_exception=True) -> bool:
@@ -22,6 +24,7 @@ def validate_equal_shapes(*data, raise_exception=True) -> bool:
             raise ValueError("Shapes must be equal.")
         return False
 
+
 # note her that data must be an iterable of numpy array-like objects
 def validate_matrix_vector_compatibility(matrix, vector, raise_exception=True) -> bool:
     validate_input(matrix, vector)
@@ -32,6 +35,17 @@ def validate_matrix_vector_compatibility(matrix, vector, raise_exception=True) -
     else:
         if raise_exception:
             raise ValueError("Matrix and vector are not compatible.")
+        return False
+
+
+def validate_types(*data, cls, raise_exception=True) -> bool:
+    validate_input(data, cls)
+
+    if all(isinstance(each, cls) for each in data):
+        return True
+    else:
+        if raise_exception:
+            raise TypeError(f"Data types must be {cls}.")
         return False
 
 
@@ -194,4 +208,3 @@ class Matrix(np.ndarray):
         validate_matrix_vector_compatibility(base_matrix, vector)
 
         return base_matrix @ vector
-
