@@ -79,3 +79,4 @@ def is_basis(*vectors) -> bool:
     validate_equal_shapes(*vectors)  # Check if all vectors have the same shape
 
     return not is_dependent(*vectors)
+

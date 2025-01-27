@@ -3,6 +3,15 @@ Portfolio Repository : A repository that showcases my knowledge in Linear Algebr
 
 # 🏗️In progress...🚧
 
+
+## Structure
+The structure of the project is following:
+1. BaseTools.py - provide a basic functionality to create Vector() or Matrix() , etc . The same as np.array().
+2. VectorTools.py - provide methods created specifically for vector operations, like is_basis() or calculate_linear_combination()
+3. MatrixTools.py - provide methods created specifically for matrix operations, like is_linear_transformation(), or compose_transformation()
+
+
+
 This is the list of functions the repo will probably have:
 
 ### Vector Operations
