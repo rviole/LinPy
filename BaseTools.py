@@ -1,18 +1,19 @@
 import numpy as np
 from IPython.display import display, Math
 
+np.random.seed(42)
 
-def validate_input(input_data, raise_exception=True) -> bool:
-    if not input_data:
+# checks if any of the input data is None
+def validate_input(*input_data, raise_exception=True) -> bool:
+    if any( each is None for each in input_data):
         if raise_exception:
             raise ValueError("No input provided.")
         return False
     return True
 
-
+# note her that data must be an iterable of numpy array-like objects
 def validate_equal_shapes(*data, raise_exception=True) -> bool:
-    if not data:
-        raise ValueError("No input provided.")
+    validate_input(data)
 
     if all(each.shape == data[0].shape for each in data):
         return True
@@ -21,22 +22,17 @@ def validate_equal_shapes(*data, raise_exception=True) -> bool:
             raise ValueError("Shapes must be equal.")
         return False
 
+# note her that data must be an iterable of numpy array-like objects
+def validate_matrix_vector_compatibility(matrix, vector, raise_exception=True) -> bool:
+    validate_input(matrix, vector)
 
-def decorator_validate_inputs(func):
-    def wrapper(*args, **kwargs):
-        if not args:
-            raise ValueError("No input provided.")
-        return func(*args, **kwargs)
-
-    return wrapper
-
-
-def decorator_validate_shapes(func):
-    def wrapper(*args, **kwargs):
-        validate_equal_shapes(*args)
-        return func(*args, **kwargs)
-
-    return wrapper
+    # check if the number of columns in the matrix is equal to the number of rows in the vector
+    if matrix.shape[1] == vector.shape[0]:
+        return True
+    else:
+        if raise_exception:
+            raise ValueError("Matrix and vector are not compatible.")
+        return False
 
 
 class Vector(np.ndarray):
@@ -60,6 +56,7 @@ class Vector(np.ndarray):
         except:
             cls.ipython_env = False
 
+        validate_input(data)
         # Convert input data into a numpy array and ensure it's a 1D vector
         obj = np.asarray(data).squeeze()  # Remove any singleton dimensions
 
@@ -99,9 +96,11 @@ class Vector(np.ndarray):
             return f"Vector({', '.join(map(str, self))})"
 
     def add_vector(self, vector):
+
         validate_input(vector)
 
         base_vector = self
+        validate_equal_shapes(base_vector, vector)
 
         # Ensure 'vector' is a Vector instance
         if not isinstance(vector, Vector):
@@ -119,6 +118,7 @@ class Vector(np.ndarray):
     def subtract_vector(self, vector):
         validate_input(vector)
         base_vector = self
+        validate_equal_shapes(base_vector, vector)
 
         # Ensure 'vector' is a Vector instance
         if not isinstance(vector, Vector):
@@ -140,3 +140,58 @@ class Vector(np.ndarray):
             raise TypeError(f"`scalar` must be of type `int|float`, got {type(scalar)}")
 
         return Vector(base_vector * scalar)
+
+
+class Matrix(np.ndarray):
+    """
+    A class representing a mathematical matrix that inherits from numpy.ndarray.
+
+    This ensures that the Matrix behaves like a numpy array and supports all
+    operations such as addition, multiplication, etc.
+
+    Attributes:
+        data (numpy.ndarray): The data of the matrix as a 2D numpy array.
+    """
+
+    def __new__(cls, *data, make_from_vectors=False):
+        validate_input(data)
+        # Case when creating from vectors
+        if make_from_vectors:
+            # Ensure multiple vectors are passed
+            if len(data) < 2:
+                raise ValueError("At least two vectors are required to form a matrix.")
+            vectors = [Vector(v) if not isinstance(v, Vector) else v for v in data]
+            validate_equal_shapes(*vectors)
+            obj = np.column_stack(vectors)
+        else:
+            # Case when creating from a single matrix
+            if len(data) != 1:
+                raise ValueError(
+                    "Only one argument is allowed when creating a matrix. To create a matrix from vectors, use `make_from_vectors=True`."
+                )
+            obj = np.asarray(data[0])
+
+            if obj.ndim != 2:
+                raise ValueError(f"A matrix must be a 2D array, got {obj.ndim}D.")
+
+        return obj.view(cls)
+
+    def rank(self):
+        base_matrix = self
+        return np.linalg.matrix_rank(base_matrix)
+
+    def is_square(self):
+        base_matrix = self
+        return base_matrix.shape[0] == base_matrix.shape[1]
+
+    def apply_on_vector(self, vector):
+        validate_input(vector)
+
+        if not isinstance(vector, Vector):
+            vector = Vector(vector)
+
+        base_matrix = self
+        validate_matrix_vector_compatibility(base_matrix, vector)
+
+        return base_matrix @ vector
+

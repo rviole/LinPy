@@ -22,8 +22,7 @@ def is_dependent(*vectors) -> bool:
 
 
 def find_linear_combination(target_vector, *vectors) -> Optional[np.ndarray]:
-    validate_input(target_vector)
-    validate_input(vectors)
+    validate_input(target_vector, vectors)
 
     validate_equal_shapes(*vectors)  # Check if all vectors have the same shape
     validate_equal_shapes(
@@ -79,4 +78,3 @@ def is_basis(*vectors) -> bool:
     validate_equal_shapes(*vectors)  # Check if all vectors have the same shape
 
     return not is_dependent(*vectors)
-
