@@ -1,7 +1,7 @@
 # LinearAlgebra-portfolio
 Portfolio Repository : A repository that showcases my knowledge in Linear Algebra.
 
-# 🚧In progress...🏗️
+# 🏗️In progress...🚧
 
 This is the list of functions the repo will probably have:
 
