@@ -1,5 +1,7 @@
 import numpy as np
+
 np.random.seed(42)
+
 
 class Matrix(np.ndarray):
     """
@@ -12,12 +14,15 @@ class Matrix(np.ndarray):
         data (numpy.ndarray): The data of the matrix as a 2D numpy array.
     """
 
-    def __new__(cls, data):
+    def __new__(cls, data, make_from_vectors=False):
 
-        obj = np.asarray(data)
+        if make_from_vectors:
+            data = np.column_stack(data)
+        else:
+            obj = np.asarray(data)
 
-        if obj.ndim < 2:
-            raise ValueError(f"A matrix must be at least a 2D array, got {obj.ndim}D.")
+        if obj.ndim == 2:
+            raise ValueError(f"A matrix must be a 2D array, got {obj.ndim}D.")
 
         return obj.view(cls)
 
@@ -36,7 +41,6 @@ def is_linear_transformation(transformation_matrix) -> bool:
         A = Matrix(A)
     n_vectors = A.shape[1]
 
-      
     # the number of rows of each vector should be equal to the number of cols of matrix (n vectors)
     v1 = np.random.random(size=(n_vectors,))
     v2 = np.random.random(size=(n_vectors,))
