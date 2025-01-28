@@ -103,3 +103,87 @@ def calculate_inverse_matrix(matrix):
         raise ValueError("Matrix is singular and cannot be inverted.")
 
     return Matrix(inv_matrix)
+
+
+def calculate_determinant(matrix):
+    validate_input(matrix)
+    matrix = Matrix(matrix) if not isinstance(matrix, Matrix) else matrix
+
+    if not matrix.is_square():
+        raise ValueError("Only square matrices have a determinant.")
+
+    if matrix.shape == (1, 1):
+        determinant = matrix[0, 0]
+    elif matrix.shape == (2, 2):
+        determinant = matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0]
+    elif matrix.shape == (3, 3):
+        a, b, c = matrix[0]
+        d, e, f = matrix[1]
+        g, h, i = matrix[2]
+        determinant = (
+            (a * e * i)
+            + (b * f * g)
+            + (c * d * h)
+            - (c * e * g)
+            - (b * d * i)
+            - (a * f * h)
+        )
+    else:
+        determinant = np.linalg.det(matrix)
+    return determinant.astype(np.float64)
+
+
+def calculate_trace(matrix):
+    validate_input(matrix)
+    matrix = Matrix(matrix) if not isinstance(matrix, Matrix) else matrix
+
+    if not matrix.is_square():
+        raise ValueError("Only square matrices have a trace.")
+
+    n_rows = matrix.shape[0]
+    trace = sum(matrix[i, i] for i in range(n_rows))
+    return trace.astype(np.float64)
+
+
+def calculate_diagonal_sum(matrix):
+    return calculate_trace(matrix)
+
+
+def calculate_antidiagonal_sum(matrix):
+    validate_input(matrix)
+    matrix = Matrix(matrix) if not isinstance(matrix, Matrix) else matrix
+
+    if not matrix.is_square():
+        raise ValueError("Only square matrices have an antidiagonal sum.")
+
+    n_rows = matrix.shape[0]
+    antidiagonal_sum = sum(matrix[i, n_rows - 1 - i] for i in range(n_rows))
+    return antidiagonal_sum.astype(np.float64)
+
+
+def find_diagonal(matrix):
+    validate_input(matrix)
+    matrix = Matrix(matrix) if not isinstance(matrix, Matrix) else matrix
+
+    if not matrix.is_square():
+        raise ValueError("Only square matrices have a diagonal.")
+
+    n_rows = matrix.shape[0]
+    diagonal = [matrix[i, i] for i in range(n_rows)]
+    return Vector(diagonal)
+
+
+def find_anti_diagonal(matrix):
+    validate_input(matrix)
+    matrix = Matrix(matrix) if not isinstance(matrix, Matrix) else matrix
+
+    if not matrix.is_square():
+        raise ValueError("Only square matrices have an anti-diagonal.")
+
+    n_rows = matrix.shape[0]
+    anti_diagonal = [matrix[i, n_rows - 1 - i] for i in range(n_rows)]
+    return Vector(anti_diagonal)
+
+
+# need to add corresponding tests
+# update Matrix class to include these methods

@@ -35,9 +35,17 @@ This is the list of functions the repo will probably have:
 11. **`transpose(matrix)`**: Find the transpose of a matrix.
 12. **`inverse_matrix(matrix)`**: Calculate the inverse of a matrix if it exists.
 
+
 ### Determinants and Properties
 13. **`calculate_determinant(matrix)`**: Compute the determinant of a square matrix.
 14. **`is_invertible(matrix)`**: Check if a matrix is invertible.
+- calculate trace
+- calculate_diagonal_sum
+- calculate_antidiagonal_sum
+- find_diagonal
+- find_anti_diagonal
+---
+
 
 ### Advanced Concepts
 15. **`null_space(matrix)`**: Compute the null space of a matrix.
