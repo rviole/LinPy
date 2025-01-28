@@ -7,6 +7,11 @@ from BaseTools import (
 )
 
 
+def is_square(*matrices) -> bool:
+    matrices = [Matrix(m) if not isinstance(m, Matrix) else m for m in matrices]
+    return all(m.shape[0] == m.shape[1] for m in matrices)
+
+
 def apply_transformation(transformation_matrix, vector):
 
     A = transformation_matrix

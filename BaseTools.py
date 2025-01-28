@@ -119,15 +119,9 @@ class Vector(np.ndarray):
         # Ensure 'vector' is a Vector instance
         if not isinstance(vector, Vector):
             vector = Vector(vector)
-
-        # Check if shapes are compatible
-        if base_vector.shape != vector.shape:
-            raise ValueError(
-                f"Shapes must be equal, got {base_vector.shape} + {vector.shape}"
-            )
-
-        # Perform addition and return a new Vector instance
-        return Vector(base_vector + vector)
+  
+        # Perform addition and return modified Vector
+        return base_vector + vector
 
     def subtract_vector(self, vector):
         validate_input(vector)
@@ -208,3 +202,59 @@ class Matrix(np.ndarray):
         validate_matrix_vector_compatibility(base_matrix, vector)
 
         return base_matrix @ vector
+
+
+if __name__ == "__main__":
+    # Test cases for Matrix class
+
+    # Test creating a matrix from a 2D array
+    try:
+        matrix1 = Matrix([[1, 2], [3, 4]])
+        print("Matrix1 created successfully:", matrix1)
+    except Exception as e:
+        print("Failed to create Matrix1:", e)
+
+    # Test creating a matrix from vectors
+    try:
+        vector1 = Vector([1, 2])
+        vector2 = Vector([3, 4])
+        matrix2 = Matrix(vector1, vector2, make_from_vectors=True)
+        print("Matrix2 created successfully from vectors:\n", matrix2)
+    except Exception as e:
+        print("Failed to create Matrix2 from vectors:", e)
+
+    # Test rank method
+    try:
+        rank = matrix1.rank()
+        print("Rank of Matrix1:", rank)
+    except Exception as e:
+        print("Failed to compute rank of Matrix1:\n", e)
+
+    # Test is_square method
+    try:
+        is_square = matrix1.is_square()
+        print("Matrix1 is square:", is_square)
+    except Exception as e:
+        print("Failed to check if Matrix1 is square:", e)
+
+    # Test apply_on_vector method
+    try:
+        result_vector = matrix1.apply_on_vector(vector1)
+        print("Result of applying Matrix1 on Vector1:", result_vector)
+    except Exception as e:
+        print("Failed to apply Matrix1 on Vector1:", e)
+
+    # Test invalid matrix creation
+    try:
+        invalid_matrix = Matrix([1, 2, 3])
+        print("Invalid matrix created successfully:", invalid_matrix)
+    except Exception as e:
+        print("Failed to create invalid matrix:", e)
+
+    # Test invalid matrix creation from vectors with different shapes
+    try:
+        vector3 = Vector([1, 2, 3])
+        invalid_matrix2 = Matrix(vector1, vector3, make_from_vectors=True)
+        print("Invalid matrix2 created successfully from vectors:", invalid_matrix2)
+    except Exception as e:
+        print("Failed to create invalid matrix2 from vectors:", e)

@@ -7,6 +7,35 @@ from BaseTools import (
 )
 
 
+def add_vectors(*vectors) -> Optional[np.ndarray]:
+    validate_input(vectors)
+    validate_equal_shapes(*vectors)  # Check if all vectors have the same shape
+
+    vectors = [Vector(v) if not isinstance(v, Vector) else v for v in vectors]
+    return sum(vectors)
+
+
+def subtract_vector(vector_1, vector_2) -> Optional[np.ndarray]:
+    validate_input(vector_1, vector_2)
+    validate_equal_shapes(vector_1, vector_2)
+
+    vector_1 = Vector(vector_1) if not isinstance(vector_1, Vector) else vector_1
+    vector_2 = Vector(vector_2) if not isinstance(vector_2, Vector) else vector_2
+
+    return vector_1 - vector_2
+
+
+def scalar_multiply_vector(vector, scalar: int | float = 1) -> Optional[np.ndarray]:
+    validate_input(vector)
+
+    if not isinstance(scalar, (int, float)):
+        raise TypeError(f"`scalar` must be of type `int|float`, got {type(scalar)}")
+
+    vector = Vector(vector) if not isinstance(vector, Vector) else vector
+
+    return vector * scalar
+
+
 def is_dependent(*vectors) -> bool:
 
     validate_input(vectors)

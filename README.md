@@ -15,7 +15,8 @@ The structure of the project is following:
 This is the list of functions the repo will probably have:
 
 ### Vector Operations
-1. **`add_vectors(v1, v2)`**: Perform vector addition.
+0. **`add_vectors(v1, v2)`**: Perform vector addition.
+1. **`subtract_vector`**
 2. **`scalar_multiply(vector, scalar)`**: Multiply a vector by a scalar.
 3. **`is_linear_combination(vector, basis_vectors)`**: Check if a vector can be expressed as a linear combination of given basis vectors.
 
