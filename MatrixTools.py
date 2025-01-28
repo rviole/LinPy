@@ -3,7 +3,7 @@ from BaseTools import (
     Matrix,
     Vector,
     validate_input,
-    validate_matrix_vector_compatibility,
+    validate_multiplication_compatibility,
 )
 
 
@@ -22,7 +22,7 @@ def apply_transformation(transformation_matrix, vector):
     if not isinstance(vector, Vector):
         vector = Vector(vector)
 
-    validate_matrix_vector_compatibility(A, vector)
+    validate_multiplication_compatibility(A, vector)
 
     return A @ vector
 
@@ -37,7 +37,7 @@ def compose_transformations(vector, *matrices):
 
     # validate compatibility between matrices and a vector
     for matrix in matrices:
-        validate_matrix_vector_compatibility(matrix, vector, raise_exception=True)
+        validate_multiplication_compatibility(matrix, vector, raise_exception=True)
 
     result = vector
     for matrix in matrices:
@@ -63,3 +63,43 @@ def is_linear_transformation(transformation_matrix) -> bool:
     additivity = np.allclose(A @ v1 + A @ v2, A @ (v1 + v2))
     homogeneity = np.allclose(A @ (c * v1), c * (A @ v1))
     return additivity and homogeneity
+
+
+def matrix_multiply(matrix1, matrix2):
+    validate_input(matrix1, matrix2)
+    matrix1 = Matrix(matrix1) if not isinstance(matrix1, Matrix) else matrix1
+    matrix2 = Matrix(matrix2) if not isinstance(matrix2, Matrix) else matrix2
+    validate_multiplication_compatibility(matrix1, matrix2)
+
+    return matrix1 @ matrix2
+
+
+def transpose(matrix):
+    validate_input(matrix)
+    matrix = Matrix(matrix) if not isinstance(matrix, Matrix) else matrix
+
+    n_rows, n_cols = matrix.shape[:2]
+    new_n_rows = n_cols
+    new_n_cols = n_rows
+
+    new_matrix = np.zeros((new_n_rows, new_n_cols))
+    for idx in range(new_n_rows):
+        # go through empty new matrix rows, and assign cols of the original matrix to them
+        new_matrix[idx] = matrix[:, idx]
+
+    return Matrix(new_matrix)
+
+
+def calculate_inverse_matrix(matrix):
+    validate_input(matrix)
+    matrix = Matrix(matrix) if not isinstance(matrix, Matrix) else matrix
+
+    if not matrix.is_square():
+        raise ValueError("Only square matrices can be inverted.")
+
+    try:
+        inv_matrix = np.linalg.inv(matrix)
+    except np.linalg.LinAlgError as e:
+        raise ValueError("Matrix is singular and cannot be inverted.")
+
+    return Matrix(inv_matrix)

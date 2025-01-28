@@ -26,7 +26,7 @@ def validate_equal_shapes(*data, raise_exception=True) -> bool:
 
 
 # note her that data must be an iterable of numpy array-like objects
-def validate_matrix_vector_compatibility(matrix, vector, raise_exception=True) -> bool:
+def validate_multiplication_compatibility(matrix, vector, raise_exception=True) -> bool:
     validate_input(matrix, vector)
 
     # check if the number of columns in the matrix is equal to the number of rows in the vector
@@ -119,7 +119,7 @@ class Vector(np.ndarray):
         # Ensure 'vector' is a Vector instance
         if not isinstance(vector, Vector):
             vector = Vector(vector)
-  
+
         # Perform addition and return modified Vector
         return base_vector + vector
 
@@ -199,10 +199,31 @@ class Matrix(np.ndarray):
             vector = Vector(vector)
 
         base_matrix = self
-        validate_matrix_vector_compatibility(base_matrix, vector)
+        validate_multiplication_compatibility(base_matrix, vector)
 
         return base_matrix @ vector
 
+    def get_transpose(self):
+        base_matrix = self
+        return base_matrix.T
+
+    def get_inverse(self):
+        base_matrix = self
+        if not base_matrix.is_square():
+            raise ValueError("Only square matrices can be inverted.")
+        try:
+            inv_matrix = np.linalg.inv(base_matrix)
+        except np.linalg.LinAlgError as e:
+            raise ValueError("Matrix is singular and cannot be inverted.")
+        return Matrix(inv_matrix)
+
+    def maltiply_matrix(self, matrix):
+        validate_input(matrix)
+        base_matrix = self
+        if not isinstance(matrix, Matrix):
+            matrix = Matrix(matrix)
+        validate_multiplication_compatibility(base_matrix, matrix)
+        return base_matrix @ matrix
 
 if __name__ == "__main__":
     # Test cases for Matrix class
