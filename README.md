@@ -2,7 +2,7 @@
 Portfolio Repository : A repository that showcases my knowledge in Linear Algebra.
 
 # 🏗️In progress...🚧
-
+##### The next repo😍 will also include the translator game where two people can send messaged encoded vectors but with different basis vectors.
 
 ## Structure
 The structure of the project is following:
@@ -10,7 +10,7 @@ The structure of the project is following:
 2. VectorTools.py - provide methods created specifically for vector operations, like is_basis() or calculate_linear_combination()
 3. MatrixTools.py - provide methods created specifically for matrix operations, like is_linear_transformation(), or compose_transformation()
 
-
+The Base Tools contain classes contain methods that use ready optimized solutions, whereas MAtrixTools and VectorTOols.py scripts use the same functions but from scratch. THis proves the deep understanding of both theorical and practical sides of the concept
 
 This is the list of functions the repo will probably have:
 
@@ -44,22 +44,23 @@ This is the list of functions the repo will probably have:
 - calculate_antidiagonal_sum
 - find_diagonal
 - find_anti_diagonal
----
 
-
-### Advanced Concepts
-15. **`null_space(matrix)`**: Compute the null space of a matrix.
-16. **`column_space(matrix)`**: Compute the column space of a matrix.
-17. **`change_of_basis(matrix, new_basis)`**: Transform a matrix to a new basis.
-
-### Dot and Cross Products
-18. **`dot_product(v1, v2)`**: Compute the dot product of two vectors.
-19. **`cross_product(v1, v2)`**: Compute the cross product of two 3D vectors.
-20. **`angle_between_vectors(v1, v2)`**: Calculate the angle between two vectors using their dot product.
 
 ### Utility Classes
 21. **`Vector`**: A class to represent vectors with methods for addition, scaling, and dot products.
 22. **`Matrix`**: A class to represent matrices with methods for multiplication, transposition, and inversion.
 23. **`Transformation`**: A class to represent and apply linear transformations.
 
-This list is extensive enough to cover both basic and advanced Linear Algebra concepts.
+### Advanced Concepts
+16. **`calculate_column_space(matrix)`**: Compute the column space of a matrix.
+- calculate_row_space
+
+---
+### Dot and Cross Products
+18. **`dot_product(v1, v2)`**: Compute the dot product of two vectors.
+19. **`cross_product(v1, v2)`**: Compute the cross product of two 3D vectors.
+20. **`angle_between_vectors(v1, v2)`**: Calculate the angle between two vectors using their dot product.
+
+15. **`null_space(matrix)`**: Compute the null space of a matrix.
+17. **`change_of_basis(matrix, new_basis)`**: Transform a matrix to a new basis.
+

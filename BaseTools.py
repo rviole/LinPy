@@ -225,6 +225,52 @@ class Matrix(np.ndarray):
         validate_multiplication_compatibility(base_matrix, matrix)
         return base_matrix @ matrix
 
+    def get_trace(self):
+        base_matrix = self
+        if not base_matrix.is_square():
+            raise ValueError("Only square matrices have a trace.")
+        return np.trace(base_matrix)
+
+    def get_determinant(self):
+        base_matrix = self
+        if not base_matrix.is_square():
+            raise ValueError("Only square matrices have a determinant.")
+        determinant = np.linalg.det(base_matrix)
+        return determinant.astype(np.float64)
+
+    def get_diagonal_sum(self):
+        return self.get_trace()
+
+    def get_antidigonal_sum(self):
+        base_matrix = self
+        if not base_matrix.is_square():
+            raise ValueError("Only square matrices have an anti-diagonal.")
+        return np.trace(np.fliplr(base_matrix))
+
+    def get_diagonal(self):
+        base_matrix = self
+        if not base_matrix.is_square():
+            raise ValueError("Only square matrices have a diagonal.")
+        return np.diag(base_matrix)
+
+    def get_anti_diagonal(self):
+        base_matrix = self
+        if not base_matrix.is_square():
+            raise ValueError("Only square matrices have an anti-diagonal.")
+        return np.diag(np.fliplr(base_matrix))
+
+    def get_column_space(self):
+        base_matrix = self
+        rank = base_matrix.rank()
+        column_space = base_matrix[:, :rank]
+        return column_space
+
+    def get_row_space(self):
+        base_matrix = self
+        row_space = self.get_column_space(base_matrix.get_transpose())
+        return row_space
+
+
 if __name__ == "__main__":
     # Test cases for Matrix class
 

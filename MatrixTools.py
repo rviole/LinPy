@@ -187,3 +187,19 @@ def find_anti_diagonal(matrix):
 
 # need to add corresponding tests
 # update Matrix class to include these methods
+def calculate_column_space(matrix):
+    validate_input(matrix)
+    matrix = Matrix(matrix) if not isinstance(matrix, Matrix) else matrix
+
+    rank = matrix.rank()
+    column_space = matrix[:, :rank]
+    return column_space
+
+
+def calculate_row_space(matrix):
+    validate_input(matrix)
+    matrix = Matrix(matrix) if not isinstance(matrix, Matrix) else matrix
+
+    matrix = matrix.get_transpose()
+    row_space = calculate_column_space(matrix)
+    return row_space
