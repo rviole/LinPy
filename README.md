@@ -55,9 +55,12 @@ This is the list of functions the repo will probably have:
 16. **`calculate_column_space(matrix)`**: Compute the column space of a matrix.
 - calculate_row_space
 
----
 ### Dot and Cross Products
-18. **`dot_product(v1, v2)`**: Compute the dot product of two vectors.
+- vector x vector  dot - vector_dot()
+- matrix x matrix dot - matrix_dot()
+- matrix x vector dot - matrix_vector_dot()
+
+---
 19. **`cross_product(v1, v2)`**: Compute the cross product of two 3D vectors.
 20. **`angle_between_vectors(v1, v2)`**: Calculate the angle between two vectors using their dot product.
 
