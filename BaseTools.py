@@ -26,15 +26,17 @@ def validate_equal_shapes(*data, raise_exception=True) -> bool:
 
 
 # note her that data must be an iterable of numpy array-like objects
-def validate_multiplication_compatibility(matrix, vector, raise_exception=True) -> bool:
-    validate_input(matrix, vector)
+def validate_multiplication_compatibility(obj_1, obj_2, raise_exception=True) -> bool:
+    validate_input(obj_1, obj_2)
 
     # check if the number of columns in the matrix is equal to the number of rows in the vector
-    if matrix.shape[1] == vector.shape[0]:
+    if obj_1.shape[1] == obj_2.shape[0]:
         return True
     else:
         if raise_exception:
-            raise ValueError("Matrix and vector are not compatible.")
+            raise ValueError(
+                f"Two objects are not compatible. Got {obj_1.shape} - {obj_2.shape}. Shapes must be (m, n) - (n, p)."
+            )
         return False
 
 
@@ -151,6 +153,18 @@ class Vector(np.ndarray):
             raise TypeError(f"`scalar` must be of type `int|float`, got {type(scalar)}")
 
         return Vector(base_vector * scalar)
+
+    def vector_dot(self, vector):
+        validate_input(vector)
+        base_vector = self
+        validate_equal_shapes(base_vector, vector)
+
+        # Ensure 'vector' is a Vector instance
+        if not isinstance(vector, Vector):
+            vector = Vector(vector)
+
+        # Perform dot product and return the result
+        return np.dot(base_vector, vector)
 
 
 class Matrix(np.ndarray):
@@ -272,6 +286,24 @@ class Matrix(np.ndarray):
         base_matrix = self
         row_space = self.get_column_space(base_matrix.get_transpose())
         return row_space
+
+    def matrix_dot(self, matrix):
+        validate_input(matrix)
+        base_matrix = self
+        if not isinstance(matrix, Matrix):
+            matrix = Matrix(matrix)
+        validate_multiplication_compatibility(base_matrix, matrix)
+
+        return base_matrix @ matrix
+
+    def vector_dot(self, vector):
+        validate_input(vector)
+        base_matrix = self
+        if not isinstance(vector, Vector):
+            vector = Vector(vector)
+        validate_multiplication_compatibility(base_matrix, vector)
+
+        return base_matrix @ vector
 
 
 def matrix_vector_dot(matrix, vector):
