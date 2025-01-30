@@ -4,6 +4,7 @@ from BaseTools import (
     Vector,
     validate_input,
     validate_multiplication_compatibility,
+    matrix_vector_dot,
 )
 
 
@@ -203,3 +204,35 @@ def calculate_row_space(matrix):
     matrix = matrix.get_transpose()
     row_space = calculate_column_space(matrix)
     return row_space
+
+
+def matrix_dot(matrix1, matrix2):
+    """
+    Here is the logic of matrix multiplication from scratch:
+
+    1. We consider the first matrix as the transformation matrix
+    2. We consider the second matrix as the set of vectors (each column - 1 vector)
+    3. If we apply 1st matrix (transformation matrix) to each column (vector) of the second matrix, we get corresponding transformed columns (vectors) for the resulting matrix.
+    4. So it feels  like applying transformation on each vector and filling the resulting matrix with the transformed vectors.
+
+    """
+    validate_input(matrix1, matrix2)
+    matrix1 = Matrix(matrix1) if not isinstance(matrix1, Matrix) else matrix1
+    matrix2 = Matrix(matrix2) if not isinstance(matrix2, Matrix) else matrix2
+
+    validate_multiplication_compatibility(matrix1, matrix2)
+
+    # shape of resulting matrix
+    n_rows = matrix1.shape[0]
+    n_cols = matrix2.shape[1]
+    result = Matrix(np.zeros((n_rows, n_cols)))
+
+    # iterate over columns (vectors) of the 2nd matrix:
+    for idx, vector in enumerate(matrix2):
+        transformed_vector = matrix_vector_dot(matrix1, vector)
+        result[:, idx] = transformed_vector
+        # each column of resulting matrix is the transformed vector of the corresponding column of the 2nd matrix
+        print(vector, transformed_vector)
+
+    return result
+

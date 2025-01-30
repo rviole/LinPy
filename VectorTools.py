@@ -107,3 +107,18 @@ def is_basis(*vectors) -> bool:
     validate_equal_shapes(*vectors)  # Check if all vectors have the same shape
 
     return not is_dependent(*vectors)
+
+
+def vector_dot(v1, v2):
+    validate_input(v1, v2)
+    v1 = Vector(v1) if not isinstance(v1, Vector) else v1
+    v2 = Vector(v2) if not isinstance(v2, Vector) else v2
+
+    # the dot product of two vectors requires the same shape, in contrast to matrix multiplication,
+    # which requires the number rows of the first matrix to be equal to the number of columns of the second matrix
+    validate_equal_shapes(v1, v2)
+
+    # the dot product of 2 vectors is element-wise multiplication followed by summation
+    result = np.sum(v1 * v2)
+    return float(result)
+

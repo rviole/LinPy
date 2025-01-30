@@ -109,6 +109,9 @@ class Vector(np.ndarray):
         else:
             return f"Vector({', '.join(map(str, self))})"
 
+    def __str__(self):
+        return f"Vector({', '.join(map(str, self))})"
+
     def add_vector(self, vector):
 
         validate_input(vector)
@@ -269,6 +272,26 @@ class Matrix(np.ndarray):
         base_matrix = self
         row_space = self.get_column_space(base_matrix.get_transpose())
         return row_space
+
+
+def matrix_vector_dot(matrix, vector):
+    validate_input(matrix, vector)
+    matrix = Matrix(matrix) if not isinstance(matrix, Matrix) else matrix
+    vector = Vector(vector) if not isinstance(vector, Vector) else vector
+
+    validate_multiplication_compatibility(matrix, vector)
+
+    n_components = len(vector)
+    result = Vector(
+        np.zeros(
+            n_components,
+        )
+    )
+
+    for i in range(n_components):
+        # each component of vector multiplied by corresponding columnn of the matrix
+        result += vector[i] * matrix[:, i]
+    return result
 
 
 if __name__ == "__main__":
