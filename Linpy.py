@@ -55,27 +55,53 @@ def get_shape(data) -> Tuple[int | float]:
     return shape
 
 
+def zeros(shape: Tuple[int, int]) -> List[List[int]]:
+    dims = len(shape)
+    if dims == 1:
+        return [0 for _ in range(shape[0])]
+    elif dims == 2:
+        return [[0 for _ in range(shape[1])] for _ in range(shape[0])]
+    else:
+        raise ValueError("Only 1D and 2D arrays are supported")
+
+
 class Vector:
     def __init__(self, data: List[int | float]):
         self.data = data
         self.shape = get_shape(self.data)
         self.ndim = len(self.shape)
 
+        # Check if the vector is 1D
         ndim_validiton = self.ndim == 1
-        type_validation = all(isinstance(x, (int, float)) for x in data)
+
+        # Check if all elements in the vector are numbers
+        number_type_validation = all(isinstance(x, (int, float)) for x in data)
+
+        # Check if all elements in the vector are of same type
+        same_type_validation = len(set([type(x).__name__ for x in data])) == 1
 
         if not ndim_validiton:
             raise ValueError(f"A Vector must be 1D, got {self.ndim}D instead.")
-        if not type_validation:
+        if not number_type_validation:
             raise TypeError("Vector can only contain integers or floats")
+        if not same_type_validation:
+            raise TypeError("Vector must contain elements of same type")
 
         self.length = len(self.data)
 
     def __add__(self, other):
-        return Vector([x + y for x, y in zip(self.data, other.data)])
+        if isinstance(other, Vector):
+            if len(self.data) != len(other.data):
+                raise ValueError("Both vectors must be of same length")
+            return Vector([x + y for x, y in zip(self.data, other.data)])
+        return NotImplemented
 
     def __sub__(self, other):
-        return Vector([x - y for x, y in zip(self.data, other.data)])
+        if isinstance(other, Vector):
+            if len(self.data) != len(other.data):
+                raise ValueError("Both vectors must be of same length")
+            return Vector([x - y for x, y in zip(self.data, other.data)])
+        return NotImplemented
 
     def __mul__(self, other):
         if isinstance(other, (int, float)):
@@ -109,16 +135,57 @@ class Matrix:
         self.shape = get_shape(self.data)
         self.ndim = len(self.shape)
 
+        # Check if the matrix is 2D
         ndim_validation = self.ndim == 2
-        type_validation = all(
+
+        # Check if all elements in the matrix are numbers
+        number_type_validation = all(
             isinstance(element, (int, float)) for row in self.data for element in row
         )
+
+        # Check if all elements in the matrix are of same type
+        same_type_validation_1 = (
+            len(set([type(element).__name__ for element in data])) == 1
+        )
+        same_type_validation_2 = (
+            len(set([type(element).__name__ for row in data for element in row])) == 1
+        )
+
         if not ndim_validation:
             raise ValueError(f"A Matrix must be 2D, got {self.ndim}D instead.")
-        if not type_validation:
+        if not number_type_validation:
             raise TypeError("Matrix can only contain integers or floats")
+        if not same_type_validation_1 or not same_type_validation_2:
+            raise TypeError("Matrix must contain elements of same type")
 
-    
+    def __add__(self, other):
+        if isinstance(other, Matrix):
+            if self.shape != other.shape:
+                raise ValueError("Both matrices must be of same shape")
+
+            new_matrix = zeros(self.shape)
+            for i, row in enumerate(self.data):
+                for j, element in enumerate(row):
+                    new_matrix[i][j] = element + other.data[i][j]
+            return Matrix(new_matrix)
+        return NotImplemented
+
+    def __sub__(self, other):
+        if isinstance(other, Matrix):
+            if self.shape != other.shape:
+                raise ValueError("Both matrices must be of same shape")
+
+            new_matrix = zeros(self.shape)
+            for i, row in enumerate(self.data):
+                for j, element in enumerate(row):
+                    new_matrix[i][j] = element - other.data[i][j]
+            return Matrix(new_matrix)
+        return NotImplemented
+
+    def __str__(self):
+        return f'Matrix[{"\n       ".join([f"{row}".replace(",", "") for row in self.data])}]'
+
+
 if __name__ != "__main__":
     v1 = Vector([1, 2, 3, 12])
     v2 = Vector([4, 5, 6])
@@ -146,4 +213,8 @@ list_3D = [[[1], [3, 4]], [[5, 6], [7, 8]], [[9, 10], [11, 12]]]
 # print(get_shape(list_2D))
 
 
-Matrix([[1, 2], [3, 4.5]])
+m1 = Matrix([[1, 2], [3, 4]])
+m2 = Matrix([[1, 2], [3, 4]])
+
+print(m1 + m2)
+print(m1 - m2)
