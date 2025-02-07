@@ -1,8 +1,12 @@
-# LinearAlgebra-portfolio
+# LinPy
 Portfolio Repository : A repository that showcases my knowledge in Linear Algebra.
 
+Limitations:
+- only int|float components for Vector/Matrix instances are allowed.
+- Vectors can only be 1D -> shape = (n,)
+- Matrix can only be 2D -> shape = (n, m)
+
 # 🏗️In progress...🚧
-##### The next repo😍 will also include the translator game where two people can send messaged encoded vectors but with different basis vectors.
 
 ## Structure
 The structure of the project is following:
