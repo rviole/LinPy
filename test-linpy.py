@@ -182,6 +182,19 @@ class Matrix:
             return Matrix(new_matrix)
         return NotImplemented
 
+    def __mul__(self, other):
+        if isinstance(other, Matrix):
+            if self.shape[1] != other.shape[0]:
+                raise ValueError(
+                    f"Matrix multiplication not possible with shapes {self.shape} and {other.shape}. Need (m x n) and (n x p)"
+                )
+            # Finding a dot product of two matrices
+            new_matrix = zeros((self.shape[0], other.shape[1]))
+            pass
+        
+        # finish the dot product            
+            
+        return NotImplemented
     def __str__(self):
         return f'Matrix[{"\n       ".join([f"{row}".replace(",", "") for row in self.data])}]'
 
@@ -216,5 +229,14 @@ list_3D = [[[1], [3, 4]], [[5, 6], [7, 8]], [[9, 10], [11, 12]]]
 m1 = Matrix([[1, 2], [3, 4]])
 m2 = Matrix([[1, 2], [3, 4]])
 
-print(m1 + m2)
-print(m1 - m2)
+# print(m1 + m2)
+# print(m1 - m2)
+
+
+
+import linpy as lp
+m1 = lp.Matrix([[1,2], [3,4]])
+m1_t = m1.T
+
+v1 = lp.Vector([1,2])
+m1.apply_on_vector(v1)
