@@ -226,8 +226,8 @@ list_3D = [[[1], [3, 4]], [[5, 6], [7, 8]], [[9, 10], [11, 12]]]
 # print(get_shape(list_2D))
 
 
-m1 = Matrix([[1, 2], [3, 4]])
-m2 = Matrix([[1, 2], [3, 4]])
+# m1 = Matrix([[1, 2], [3, 4]])
+# m2 = Matrix([[1, 2], [3, 4]])
 
 # print(m1 + m2)
 # print(m1 - m2)
@@ -235,8 +235,32 @@ m2 = Matrix([[1, 2], [3, 4]])
 
 
 import linpy as lp
-m1 = lp.Matrix([[1,2], [3,4]])
-m1_t = m1.T
+m1 = lp.Matrix([[1,2], 
+                [3,4]])
+
+
+m2 = lp.Matrix([[11,22], 
+                [12, 21]])
+
+# m1_t = m1.T
 
 v1 = lp.Vector([1,2])
-m1.apply_on_vector(v1)
+# v2 = lp.Vector([2,3])
+# m1.apply_on_vector(v1)
+
+# print(m1*v1)
+
+import numpy as np
+# print(m1 * m2)
+# print(np.array(m1) @ np.array(m2))
+# print(m2 * m1)
+# print(np.array(m2) @ np.array(m1))
+# print(5 * m1)
+# print(m1 * 5)
+# print(np.array(m1) * 5)
+
+
+print(np.array(v1) @ np.array(m1))
+
+print(m1 * v1)
+print(np.array(m1) @ np.array(v1))

@@ -34,8 +34,7 @@ class Vector:
 
     def __rmul__(self, other):
         if isinstance(other, (int, float)):
-            scalar = other
-            return Vector([x * scalar for x in self.data])
+            return self.__mul__(other)
         raise TypeError(
             f"Unsupported operand type(s) for *: '{type(other).__name__}' and 'Vector'"
         )

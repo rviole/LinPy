@@ -88,10 +88,8 @@ def can_be_vector(data):
 
 
 def can_be_matrix(data):
-    data = data
     shape = get_shape(data)
     ndim = len(shape)
-
     # Check if the matrix is 2D
     ndim_validation = ndim == 2
 
@@ -117,6 +115,7 @@ def can_be_matrix(data):
 
 
 def apply_transformation_on_vector(matrix, vector):
+    raise NotImplementedError("This function is not implemented yet")
     can_be_matrix(matrix)
     can_be_vector(vector)
 
