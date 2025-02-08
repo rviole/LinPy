@@ -1,12 +1,11 @@
 from .utils import get_shape, can_be_vector
 from typing import List
+
+
 class Vector:
     def __init__(self, data: List[int | float]):
         can_be_vector(data)
         self.data = data
-        self.shape = get_shape(self.data)
-        self.ndim = len(self.shape)
-        self.length = len(self.data)
 
     def __add__(self, other):
         if isinstance(other, Vector):
@@ -42,11 +41,32 @@ class Vector:
     def __str__(self):
         return f"Vector[{" ".join(str(component) for component in self.data)}]"
 
+    def __repr__(self):
+        return f"Vector[{" ".join(str(component) for component in self.data)}]"
+
     def __len__(self):
         return len(self.data)
-    
+
     def __iter__(self):
         return iter(self.data)
-    
+
     def __getitem__(self, index):
         return self.data[index]
+
+    @property
+    def magnitude(self):
+        # return magnitude of the vector
+        return sum([x**2 for x in self.data]) ** 0.5
+    
+    @property
+    def length(self):
+        return len(self.data)
+    
+    @property
+    def shape(self):
+        return  get_shape(self.data)
+    
+    @property
+    def ndim(self):
+        return len(self.shape)
+    

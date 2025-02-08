@@ -242,9 +242,19 @@ m1 = lp.Matrix([[1,2],
 m2 = lp.Matrix([[11,22], 
                 [12, 21]])
 
+# 2D with 3x3
+m3 = lp.Matrix([[1, 2, 3],
+                [4, 5, 6],
+                [7, 8, 9]])
 # m1_t = m1.T
-
+print(m1.diagonal,m1.trace)
+print(m2.diagonal,m2.trace)
+print(m3.diagonal,m3.trace)
 v1 = lp.Vector([1,2])
+# print(v1.length)
+# print(v1.magnitude)
+# print(v1.shape)
+# print(v1.ndim)
 # v2 = lp.Vector([2,3])
 # m1.apply_on_vector(v1)
 
@@ -260,7 +270,9 @@ import numpy as np
 # print(np.array(m1) * 5)
 
 
-print(np.array(v1) @ np.array(m1))
+# print(np.array(v1) @ np.array(m1))
 
-print(m1 * v1)
-print(np.array(m1) @ np.array(v1))
+# print(m1 * v1)
+# print(np.array(m1) @ np.array(v1))
+
+

@@ -8,10 +8,7 @@ class Matrix:
     def __init__(self, data: List[List[int | float]]):
 
         can_be_matrix(data)
-
         self.data = data
-        self.shape = get_shape(self.data)
-        self.ndim = len(self.shape)
 
     def __add__(self, other):
         if isinstance(other, Matrix):
@@ -110,6 +107,38 @@ class Matrix:
     def T(self):
         return self.transpose
 
+    @property
+    def shape(self):
+        return get_shape(self.data)
+
+    @property
+    def ndim(self):
+        return len(self.shape)
+
+    @property
+    def diagonal(self):
+        if not self.is_square:
+            raise ValueError(
+                f"Non-square matrix doesn't have a diagonal, got shape {self.shape}"
+            )
+        digonal_length = self.shape[0]
+        diagonal_vector = zeros(shape=(digonal_length,))
+
+        for i, row in enumerate(self.data):
+            diagonal_vector[i] = self.data[i][i]
+        
+        return Vector(diagonal_vector)
+    
+    @property
+    def trace(self):
+        return sum(self.diagonal)
+    
+    @property
+    def is_square(self):
+        if self.shape[0] == self.shape[1]:
+            return True
+        return False
+
     def apply_on_vector(self, vector):
         can_be_vector(vector)
         vector = Vector(vector)
@@ -174,3 +203,13 @@ class Matrix:
 
         # because columns are shown as rows in the matrix, we will transpose the matrix
         return Matrix(new_matrix).T
+
+
+# added diagonal property
+# add anti-diagonal property
+# added is_square property
+# need to add property "is_diagonal" and "is_identity"
+# need to add property "is_anti_diagonal"
+# need to add property "is_upper_triangular" and "is_lower_triangular"
+# also need to add simple property "is_symmetric" and "is_skew_symmetric"
+# trace etc
