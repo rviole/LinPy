@@ -1,6 +1,27 @@
 # LinPy
 A repository that showcases my knowledge in Linear Algebra.
 
+<br>
+
+## **🔍 Portfolio Project Showcase**  
+*This is a conceptual demonstration, not production-ready code.*  
+
+### **✨ Key Concepts Demonstrated**  
+| **Concept**               | **Implementation Example**                      |  
+|---------------------------|-------------------------------------------------|  
+| **Vector Operations**     | Custom vector addition, subtraction, and scaling |  
+| **Matrix Operations**     | Matrix multiplication, transposition, and inversion |  
+| **Linear Transformations**| Applying and composing linear transformations |  
+
+<br>
+
+**Key Notes:**  
+⚠️ Prioritizes mathematical clarity over practicality  
+⚠️ Intentional unoptimized implementation **to showcase step-by-step logic and enhance code clarity**  
+⚠️ Serves as skills exhibit for technical interviews  
+
+<br>
+
 ## **🚧 Still in Progress**  
 
 ## To be Implemented
@@ -29,7 +50,7 @@ A repository that showcases my knowledge in Linear Algebra.
 - [x] Matrix dot product
 - [ ] Matrix-vector dot product
 - [ ] Compute cross product of two vectors
-- [ ] Calculate angle between two vectors
+- [x] Calculate angle between two vectors
 - [ ] Compute null space of a matrix
 - [ ] Transform a matrix to a new basis
 - [ ] Check if a matrix is diagonal
@@ -42,26 +63,7 @@ A repository that showcases my knowledge in Linear Algebra.
 - [ ] Implement Transformation class
 
 
-<br>
 
-## **🔍 Portfolio Project Showcase**  
-*This is a conceptual demonstration, not production-ready code.*  
-
-### **✨ Key Concepts Demonstrated**  
-| **Concept**               | **Implementation Example**                      |  
-|---------------------------|-------------------------------------------------|  
-| **Vector Operations**     | Custom vector addition, subtraction, and scaling |  
-| **Matrix Operations**     | Matrix multiplication, transposition, and inversion |  
-| **Linear Transformations**| Applying and composing linear transformations |  
-
-<br>
-
-**Key Notes:**  
-⚠️ Prioritizes mathematical clarity over practicality  
-⚠️ Intentional unoptimized implementation **to showcase step-by-step logic and enhance code clarity**  
-⚠️ Serves as skills exhibit for technical interviews  
-
-<br>
 
 ## **📖 Description**
 
