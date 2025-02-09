@@ -48,7 +48,7 @@ A repository that showcases my knowledge in Linear Algebra.
 - [ ] Compute row space of a matrix
 - [X] Vector dot product
 - [x] Matrix dot product
-- [ ] Matrix-vector dot product
+- [x] Matrix-vector dot product
 - [ ] Compute cross product of two vectors
 - [x] Calculate angle between two vectors
 - [ ] Compute null space of a matrix
@@ -58,7 +58,7 @@ A repository that showcases my knowledge in Linear Algebra.
 - [ ] Check if a matrix is anti-diagonal
 - [x] Check if a matrix is upper triangular
 - [x] Check if a matrix is lower triangular
-- [ ] Check if a matrix is symmetric
+- [x] Check if a matrix is symmetric
 - [ ] Check if a matrix is skew-symmetric
 - [ ] Implement Transformation class
 

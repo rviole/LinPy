@@ -94,6 +94,11 @@ class Matrix:
     def __len__(self):
         return len(self.data)
 
+    def __eq__(self, other):
+        if not isinstance(other, Matrix):
+            raise ValueError(f"Can't compare Matrix with {type(other).__name__}")
+        return self.data == other.data
+    
     @property
     def transpose(self):
         base_matrix = self.data
@@ -153,6 +158,15 @@ class Matrix:
     @property
     def anti_trace(self):
         return sum(self.anti_diagonal)
+    
+    @property
+    def is_symmetric(self):
+        if not self.is_square:
+            raise ValueError(
+                f"Non-square matrix doesn't have a diagonal, got shape {self.shape}"
+            )
+        
+        return self == self.T
 
     @property
     def is_square(self):

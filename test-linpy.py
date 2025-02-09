@@ -28,7 +28,20 @@ v2 = lp.Vector([1, 1])
 
 # There are 2 types of triangular matrix: upper triangular and lower triangular
 
-print(m4.is_identity)
-print(m5.is_identity)
-print(m6.is_identity)
-print(m7.is_identity)
+# print(m4.is_identity)
+# print(m5.is_identity)
+# print(m6.is_identity)
+# print(m7.is_identity)
+
+#non symmetric matrix
+m6 = lp.Matrix([[1, 2, 3], 
+                [4, 5, 6],
+                [7, 8, 9]])
+
+# symmetric matrix
+m8 = lp.Matrix([[1, 2, 3], 
+                [2, 4, 5],
+                [3, 5, 6]])
+print(m6.is_symmetric)
+print(m7.is_symmetric)
+print(m8.is_symmetric)
