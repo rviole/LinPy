@@ -161,6 +161,42 @@ class Matrix:
         return False
 
     @property
+    def is_diagonal(self):
+        if not self.is_square:
+            raise ValueError(
+                f"Non-square matrix doesn't have a diagonal, got shape {self.shape}"
+            )
+        
+        non_diagonal_values = []
+
+        for i, row in enumerate(self.data):
+            non_diagonal_values.extend(row[i+1:])
+            non_diagonal_values.extend(row[:i])
+
+        diagonal_validation = all(x != 0 for x in self.diagonal)
+        non_diagonal_validation = all(x == 0 for x in non_diagonal_values)
+        
+        return diagonal_validation and non_diagonal_validation
+
+    @property
+    def is_identity(self):
+        if not self.is_square:
+            raise ValueError(
+                f"Non-square matrix doesn't have a diagonal, got shape {self.shape}"
+            )
+        
+        non_diagonal_values = []
+
+        for i, row in enumerate(self.data):
+            non_diagonal_values.extend(row[i+1:])
+            non_diagonal_values.extend(row[:i])
+
+        diagonal_validation = all(x == 1 for x in self.diagonal)
+        non_diagonal_validation = all(x == 0 for x in non_diagonal_values)
+        
+        return diagonal_validation and non_diagonal_validation
+
+    @property
     def is_upper_triangular(self):
         if not self.is_square:
             raise ValueError(
@@ -203,6 +239,7 @@ class Matrix:
         lower_validation = all([x != 0 for x in under_diagonal])
 
         return upper_validation and lower_validation
+
 
     def apply_on_vector(self, vector):
         can_be_vector(vector)

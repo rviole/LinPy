@@ -53,11 +53,11 @@ A repository that showcases my knowledge in Linear Algebra.
 - [x] Calculate angle between two vectors
 - [ ] Compute null space of a matrix
 - [ ] Transform a matrix to a new basis
-- [ ] Check if a matrix is diagonal
-- [ ] Check if a matrix is an identity matrix
+- [x] Check if a matrix is diagonal
+- [x] Check if a matrix is an identity matrix
 - [ ] Check if a matrix is anti-diagonal
-- [ ] Check if a matrix is upper triangular
-- [ ] Check if a matrix is lower triangular
+- [x] Check if a matrix is upper triangular
+- [x] Check if a matrix is lower triangular
 - [ ] Check if a matrix is symmetric
 - [ ] Check if a matrix is skew-symmetric
 - [ ] Implement Transformation class
