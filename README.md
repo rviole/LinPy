@@ -1,73 +1,96 @@
 # LinPy
-Portfolio Repository : A repository that showcases my knowledge in Linear Algebra.
+A repository that showcases my knowledge in Linear Algebra.
+
+## **🚧 Still in Progress**  
+
+<br>
+
+## **🔍 Portfolio Project Showcase**  
+*This is a conceptual demonstration, not production-ready code.*  
+
+### **✨ Key Concepts Demonstrated**  
+| **Concept**               | **Implementation Example**                      |  
+|---------------------------|-------------------------------------------------|  
+| **Vector Operations**     | Custom vector addition, subtraction, and scaling |  
+| **Matrix Operations**     | Matrix multiplication, transposition, and inversion |  
+| **Linear Transformations**| Applying and composing linear transformations |  
+
+<br>
+
+**Key Notes:**  
+⚠️ Prioritizes mathematical clarity over practicality  
+⚠️ Intentional unoptimized implementation **to showcase step-by-step logic and enhance code clarity**  
+⚠️ Serves as skills exhibit for technical interviews  
+
+<br>
+
+## **📖 Description**
+
+LinPy is a Python package that demonstrates a deep understanding of linear algebra concepts through practical implementation. Unlike typical projects that rely on libraries like NumPy, LinPy is built using Python's built-in lists to perform vector and matrix operations, showcasing both theoretical knowledge and practical coding skills.
+
+## **📂 Project Structure**  
+| File                     | Purpose                                  |  
+|--------------------------|------------------------------------------|  
+| `Vector.py`              | Defines the Vector class and its operations |  
+| `Matrix.py`              | Defines the Matrix class and its operations |  
+| `utils.py`               | Utility functions for shape validation and transformations |  
+| `__init__.py`            | Package initialization and exports       |  
 
 Limitations:
 - only int|float components for Vector/Matrix instances are allowed.
 - Vectors can only be 1D -> shape = (n,)
 - Matrix can only be 2D -> shape = (n, m)
 
-# 🏗️In progress...🚧
-
-## Structure
-The structure of the project is following:
-1. BaseTools.py - provide a basic functionality to create Vector() or Matrix() , etc . The same as np.array().
-2. VectorTools.py - provide methods created specifically for vector operations, like is_basis() or calculate_linear_combination()
-3. MatrixTools.py - provide methods created specifically for matrix operations, like is_linear_transformation(), or compose_transformation()
-
-The Base Tools contain classes contain methods that use ready optimized solutions, whereas MAtrixTools and VectorTOols.py scripts use the same functions but from scratch. THis proves the deep understanding of both theorical and practical sides of the concept
-
+---
+## Personal Notes
 This is the list of functions the repo will probably have:
 
 ### Vector Operations
-0. **`add_vectors(v1, v2)`**: Perform vector addition.
-1. **`subtract_vector`**
-2. **`scalar_multiply(vector, scalar)`**: Multiply a vector by a scalar.
-3. **`is_linear_combination(vector, basis_vectors)`**: Check if a vector can be expressed as a linear combination of given basis vectors.
+1. `add_vectors(v1, v2)`
+2. `subtract_vector`
+3. `scalar_multiply(vector, scalar)`
+4. `is_linear_combination(vector, basis_vectors)`
 
 ### Vector Spaces
-4. **`find_span(basis_vectors)`**: Compute the span of a set of vectors.
-5. **`is_basis(vectors)`**: Check if a set of vectors forms a basis.
-6. **`is_linearly_independent(vectors)`**: Verify linear independence of vectors.
+5. `find_span(basis_vectors)`
+6. `is_basis(vectors)`
+7. `is_linearly_independent(vectors)`
 
 ### Linear Transformations
-7. **`is_linear_transformation(matrix)`**: Check if a given transformation matrix represents a linear transformation.
-8. **`apply_transformation(matrix, vector)`**: Apply a linear transformation to a vector.
-9. **`compose_transformations(matrix1, matrix2)`**: Compose two linear transformations.
+8. `is_linear_transformation(matrix)`
+9. `apply_transformation(matrix, vector)`
+10. `compose_transformations(matrix1, matrix2)`
 
 ### Matrices
-10. **`matrix_multiply(matrix1, matrix2)`**: Multiply two matrices.
-11. **`transpose(matrix)`**: Find the transpose of a matrix.
-12. **`inverse_matrix(matrix)`**: Calculate the inverse of a matrix if it exists.
-
+11. `matrix_multiply(matrix1, matrix2)`
+12. `transpose(matrix)`
+13. `inverse_matrix(matrix)`
 
 ### Determinants and Properties
-13. **`calculate_determinant(matrix)`**: Compute the determinant of a square matrix.
-14. **`is_invertible(matrix)`**: Check if a matrix is invertible.
-- calculate trace
-- calculate_diagonal_sum
-- calculate_antidiagonal_sum
-- find_diagonal
-- find_anti_diagonal
-
+14. `calculate_determinant(matrix)`
+15. `is_invertible(matrix)`
+16. `calculate_trace`
+17. `calculate_diagonal_sum`
+18. `calculate_antidiagonal_sum`
+19. `find_diagonal`
+20. `find_anti_diagonal`
 
 ### Utility Classes
-21. **`Vector`**: A class to represent vectors with methods for addition, scaling, and dot products.
-22. **`Matrix`**: A class to represent matrices with methods for multiplication, transposition, and inversion.
-23. **`Transformation`**: A class to represent and apply linear transformations.
+21. `Vector`
+22. `Matrix`
+23. `Transformation`
 
 ### Advanced Concepts
-16. **`calculate_column_space(matrix)`**: Compute the column space of a matrix.
-- calculate_row_space
+24. `calculate_column_space(matrix)`
+25. `calculate_row_space`
 
 ### Dot and Cross Products
-- vector x vector  dot - vector_dot()
-- matrix x matrix dot - matrix_dot()
-- matrix x vector dot - matrix_vector_dot()
+26. `vector_dot`
+27. `matrix_dot`
+28. `matrix_vector_dot`
+29. `cross_product(v1, v2)`
+30. `angle_between_vectors(v1, v2)`
 
----
-19. **`cross_product(v1, v2)`**: Compute the cross product of two 3D vectors.
-20. **`angle_between_vectors(v1, v2)`**: Calculate the angle between two vectors using their dot product.
-
-15. **`null_space(matrix)`**: Compute the null space of a matrix.
-17. **`change_of_basis(matrix, new_basis)`**: Transform a matrix to a new basis.
+31. `null_space(matrix)`
+32. `change_of_basis(matrix, new_basis)`
 
