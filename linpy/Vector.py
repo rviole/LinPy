@@ -39,10 +39,10 @@ class Vector:
         )
 
     def __str__(self):
-        return f"Vector[{" ".join(str(component) for component in self.data)}]"
+        return f"Vector[ {"  ".join(str(component) for component in self.data)} ]"
 
     def __repr__(self):
-        return f"Vector[{" ".join(str(component) for component in self.data)}]"
+        return f"Vector[ {"  ".join(str(component) for component in self.data)} ]"
 
     def __len__(self):
         return len(self.data)

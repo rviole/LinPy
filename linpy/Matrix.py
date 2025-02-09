@@ -126,12 +126,33 @@ class Matrix:
 
         for i, row in enumerate(self.data):
             diagonal_vector[i] = self.data[i][i]
-        
+
         return Vector(diagonal_vector)
+
+    @property
+    def anti_diagonal(self):
+        if not self.is_square:
+            raise ValueError(
+                f"Non-square matrix doesn't have an anti-diagonal, got shape {self.shape}"
+            )
+        # anti
+        anti_digonal_length = self.shape[0]
+        anti_diagonal_vector = zeros(shape=(anti_digonal_length,))
+
+        for (
+            i,
+            row,
+        ) in enumerate(self.data):
+            anti_diagonal_vector[i] = self.data[i][anti_digonal_length - 1 - i]
+        return Vector(anti_diagonal_vector)
     
     @property
     def trace(self):
         return sum(self.diagonal)
+
+    @property
+    def anti_trace(self):
+        return sum(self.anti_diagonal)
     
     @property
     def is_square(self):
