@@ -94,10 +94,18 @@ class Matrix:
     def __len__(self):
         return len(self.data)
 
+    def __neg__(self):
+        new_matrix = zeros(shape=self.shape)
+        for i, row in enumerate(self.data):
+            for j, element in enumerate(row):
+                new_matrix[i][j] = -element
+        return Matrix(new_matrix)
+
     def __eq__(self, other):
         if not isinstance(other, Matrix):
             raise ValueError(f"Can't compare Matrix with {type(other).__name__}")
         return self.data == other.data
+    
     
     @property
     def transpose(self):
@@ -254,6 +262,14 @@ class Matrix:
 
         return upper_validation and lower_validation
 
+    @property
+    def is_skew_symmetric(self):
+        if not self.is_square:
+            raise ValueError(
+                f"Non-square matrix doesn't have a diagonal, got shape {self.shape}"
+            )
+        
+        return self == -self.T
 
     def apply_on_vector(self, vector):
         can_be_vector(vector)

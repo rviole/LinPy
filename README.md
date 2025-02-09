@@ -59,7 +59,7 @@ A repository that showcases my knowledge in Linear Algebra.
 - [x] Check if a matrix is upper triangular
 - [x] Check if a matrix is lower triangular
 - [x] Check if a matrix is symmetric
-- [ ] Check if a matrix is skew-symmetric
+- [x] Check if a matrix is skew-symmetric
 - [ ] Implement Transformation class
 
 

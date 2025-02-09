@@ -42,6 +42,10 @@ m6 = lp.Matrix([[1, 2, 3],
 m8 = lp.Matrix([[1, 2, 3], 
                 [2, 4, 5],
                 [3, 5, 6]])
-print(m6.is_symmetric)
-print(m7.is_symmetric)
-print(m8.is_symmetric)
+
+# skew symmetric matrix
+m9 = lp.Matrix([[0, 2, -3], 
+                [-2, 0, 5],
+                [3, -5, 0]])
+print(m6.is_skew_symmetric)
+print(m9.is_skew_symmetric)

@@ -52,6 +52,9 @@ class Vector:
 
     def __getitem__(self, index):
         return self.data[index]
+    
+    def __neg__(self):
+        return Vector([-x for x in self.data])
 
     @property
     def magnitude(self):
