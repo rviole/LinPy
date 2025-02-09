@@ -145,7 +145,7 @@ class Matrix:
         ) in enumerate(self.data):
             anti_diagonal_vector[i] = self.data[i][anti_digonal_length - 1 - i]
         return Vector(anti_diagonal_vector)
-    
+
     @property
     def trace(self):
         return sum(self.diagonal)
@@ -153,12 +153,56 @@ class Matrix:
     @property
     def anti_trace(self):
         return sum(self.anti_diagonal)
-    
+
     @property
     def is_square(self):
         if self.shape[0] == self.shape[1]:
             return True
         return False
+
+    @property
+    def is_upper_triangular(self):
+        if not self.is_square:
+            raise ValueError(
+                f"Non-square matrix doesn't have a diagonal, got shape {self.shape}"
+            )
+
+        over_diagonal = []
+        under_diagonal = []
+
+        for i, row in enumerate(self.data):
+            over_diagonal.extend(row[i:])
+            under_diagonal.extend(row[:i])
+
+        # Check if all values over diagonal (including diagonal) are non-zero
+        upper_validation = all([x != 0 for x in over_diagonal])
+        
+        # Check if all values under diagonal (excluding diagonal) are zero
+        lower_validation = all([x == 0 for x in under_diagonal])
+
+        return upper_validation and lower_validation
+
+    @property
+    def is_lower_triangular(self):
+        if not self.is_square:
+            raise ValueError(
+                f"Non-square matrix doesn't have a diagonal, got shape {self.shape}"
+            )
+            
+        over_diagonal = []
+        under_diagonal = []
+        
+        for i, row in enumerate(self.data):
+            over_diagonal.extend(row[i+1:])
+            under_diagonal.extend(row[:i+1])
+
+        # Check if all values over diagonal (excluding diagonal) are non-zero
+        upper_validation = all([x == 0 for x in over_diagonal])
+        
+        # Check if all values under diagonal (including diagonal) are zero
+        lower_validation = all([x != 0 for x in under_diagonal])
+
+        return upper_validation and lower_validation
 
     def apply_on_vector(self, vector):
         can_be_vector(vector)
