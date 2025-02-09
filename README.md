@@ -31,10 +31,10 @@ LinPy is a Python package that demonstrates a deep understanding of linear algeb
 ## **📂 Project Structure**  
 | File                     | Purpose                                  |  
 |--------------------------|------------------------------------------|  
+| `__init__.py`            | Package initialization and exports       |  
+| `utils.py`               | Utility functions for shape validation and transformations |  
 | `Vector.py`              | Defines the Vector class and its operations |  
 | `Matrix.py`              | Defines the Matrix class and its operations |  
-| `utils.py`               | Utility functions for shape validation and transformations |  
-| `__init__.py`            | Package initialization and exports       |  
 
 Limitations:
 - only int|float components for Vector/Matrix instances are allowed.
