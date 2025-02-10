@@ -105,8 +105,7 @@ class Matrix:
         if not isinstance(other, Matrix):
             raise ValueError(f"Can't compare Matrix with {type(other).__name__}")
         return self.data == other.data
-    
-    
+
     @property
     def transpose(self):
         base_matrix = self.data
@@ -166,14 +165,14 @@ class Matrix:
     @property
     def anti_trace(self):
         return sum(self.anti_diagonal)
-    
+
     @property
     def is_symmetric(self):
         if not self.is_square:
             raise ValueError(
                 f"Non-square matrix doesn't have a diagonal, got shape {self.shape}"
             )
-        
+
         return self == self.T
 
     @property
@@ -188,17 +187,36 @@ class Matrix:
             raise ValueError(
                 f"Non-square matrix doesn't have a diagonal, got shape {self.shape}"
             )
-        
+
         non_diagonal_values = []
 
         for i, row in enumerate(self.data):
-            non_diagonal_values.extend(row[i+1:])
+            non_diagonal_values.extend(row[i + 1 :])
             non_diagonal_values.extend(row[:i])
 
         diagonal_validation = all(x != 0 for x in self.diagonal)
         non_diagonal_validation = all(x == 0 for x in non_diagonal_values)
-        
+
         return diagonal_validation and non_diagonal_validation
+
+    @property
+    def is_anti_diagonal(self):
+        if not self.is_square:
+            raise ValueError(
+                f"Non-square matrix doesn't have a diagonal, got shape {self.shape}"
+            )
+        non_anti_diagonal_values = []
+
+        cols = self.shape[1]
+
+        for i, row in enumerate(self.data):
+            non_anti_diagonal_values.extend(row[: cols - i - 1])
+            non_anti_diagonal_values.extend(row[cols - i :])
+
+        anti_diagonal_validation = all(x != 0 for x in self.anti_diagonal)
+        non_anti_diagonal_validation = all(x == 0 for x in non_anti_diagonal_values)
+
+        return anti_diagonal_validation and non_anti_diagonal_validation
 
     @property
     def is_identity(self):
@@ -206,16 +224,16 @@ class Matrix:
             raise ValueError(
                 f"Non-square matrix doesn't have a diagonal, got shape {self.shape}"
             )
-        
+
         non_diagonal_values = []
 
         for i, row in enumerate(self.data):
-            non_diagonal_values.extend(row[i+1:])
+            non_diagonal_values.extend(row[i + 1 :])
             non_diagonal_values.extend(row[:i])
 
         diagonal_validation = all(x == 1 for x in self.diagonal)
         non_diagonal_validation = all(x == 0 for x in non_diagonal_values)
-        
+
         return diagonal_validation and non_diagonal_validation
 
     @property
@@ -234,7 +252,7 @@ class Matrix:
 
         # Check if all values over diagonal (including diagonal) are non-zero
         upper_validation = all([x != 0 for x in over_diagonal])
-        
+
         # Check if all values under diagonal (excluding diagonal) are zero
         lower_validation = all([x == 0 for x in under_diagonal])
 
@@ -246,17 +264,17 @@ class Matrix:
             raise ValueError(
                 f"Non-square matrix doesn't have a diagonal, got shape {self.shape}"
             )
-            
+
         over_diagonal = []
         under_diagonal = []
-        
+
         for i, row in enumerate(self.data):
-            over_diagonal.extend(row[i+1:])
-            under_diagonal.extend(row[:i+1])
+            over_diagonal.extend(row[i + 1 :])
+            under_diagonal.extend(row[: i + 1])
 
         # Check if all values over diagonal (excluding diagonal) are non-zero
         upper_validation = all([x == 0 for x in over_diagonal])
-        
+
         # Check if all values under diagonal (including diagonal) are zero
         lower_validation = all([x != 0 for x in under_diagonal])
 
@@ -268,7 +286,7 @@ class Matrix:
             raise ValueError(
                 f"Non-square matrix doesn't have a diagonal, got shape {self.shape}"
             )
-        
+
         return self == -self.T
 
     def apply_on_vector(self, vector):

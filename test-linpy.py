@@ -49,3 +49,11 @@ m9 = lp.Matrix([[0, 2, -3],
                 [3, -5, 0]])
 print(m6.is_skew_symmetric)
 print(m9.is_skew_symmetric)
+
+
+# anti diagonal matrix
+m10 = lp.Matrix([[0, 0, 1], 
+                [0, 2, 0],
+                [3, 0, 0]])
+
+print(m10.is_anti_diagonal)

@@ -37,7 +37,7 @@ A repository that showcases my knowledge in Linear Algebra.
 - [ ] Check if a set of vectors forms a basis
 - [ ] Verify linear independence of vectors
 - [ ] Compute the span of a set of vectors
-- [ ] Check if a matrix represents a linear transformation
+- [-] Check if a matrix represents a linear transformation
 - [ ] Apply a linear transformation to a vector
 - [ ] Compose two linear transformations
 - [x] Matrix multiplication
@@ -55,7 +55,7 @@ A repository that showcases my knowledge in Linear Algebra.
 - [ ] Transform a matrix to a new basis
 - [x] Check if a matrix is diagonal
 - [x] Check if a matrix is an identity matrix
-- [ ] Check if a matrix is anti-diagonal
+- [x] Check if a matrix is anti-diagonal
 - [x] Check if a matrix is upper triangular
 - [x] Check if a matrix is lower triangular
 - [x] Check if a matrix is symmetric
