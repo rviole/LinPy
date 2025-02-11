@@ -69,13 +69,6 @@ A repository that showcases my knowledge in Linear Algebra.
 
 LinPy is a Python package that demonstrates a deep understanding of linear algebra concepts through practical implementation. Unlike typical projects that rely on libraries like NumPy, LinPy is built using Python's built-in lists to perform vector and matrix operations, showcasing both theoretical knowledge and practical coding skills.
 
-## **📂 Project Structure**  
-| File                     | Purpose                                  |  
-|--------------------------|------------------------------------------|  
-| `__init__.py`            | Package initialization and exports       |  
-| `utils.py`               | Utility functions for shape validation and transformations |  
-| `Vector.py`              | Defines the Vector class and its operations |  
-| `Matrix.py`              | Defines the Matrix class and its operations |  
 
 Limitations:
 - only int|float components for Vector/Matrix instances are allowed.
