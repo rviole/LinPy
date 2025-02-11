@@ -383,7 +383,7 @@ class Matrix:
     @property
     def is_singular(self):
         return not self.is_full_rank
-    
+
     @property
     def is_invertable(self):
         try:
@@ -391,16 +391,7 @@ class Matrix:
             return True
         except ValueError:
             return False
-    
-    
-    
-    # added diagonal property
 
-
-# add anti-diagonal property
-# added is_square property
-# need to add property "is_diagonal" and "is_identity"
-# need to add property "is_anti_diagonal"
-# need to add property "is_upper_triangular" and "is_lower_triangular"
-# also need to add simple property "is_symmetric" and "is_skew_symmetric"
-# trace etc
+    @property
+    def is_linear_transformation(self):
+        return self.is_full_rank

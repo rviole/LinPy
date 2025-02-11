@@ -1,0 +1,24 @@
+def find_span(*basis_vectors) -> dict:
+    validate_input(basis_vectors)
+    validate_equal_shapes(*basis_vectors)  # Check if all vectors have the same shape
+
+    vectors = [Vector(v) if not isinstance(v, Vector) else v for v in basis_vectors]
+    matrix = np.column_stack(vectors)
+
+    output = {
+        "rank": 0,  # Dimension of the span (rank)
+        "full_span": False,  # Whether the span fills the entire space
+        "zero_span": False,  # Whether the span is trivial (zero vector only)
+    }
+
+    rank = np.linalg.matrix_rank(matrix)
+    output["rank"] = int(rank)
+
+    n_vectors = matrix.shape[1]  # Number of vectors is equal to number of columns
+
+    if rank == 0:
+        output["zero_span"] = True
+    elif rank == n_vectors:
+        output["full_span"] = True
+
+    return output
