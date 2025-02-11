@@ -18,42 +18,7 @@ m6 = lp.Matrix([[1, 0, 0], [0, 5, 0], [0, 0, 9]])
 # identity matrix
 m7 = lp.Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
 
-# print(m2, m2.diagonal, m2.anti_diagonal, m2.trace, m2.anti_trace)
-# print(m3, m3.diagonal, m3.anti_diagonal, m3.trace, m3.anti_trace)
-
-# 2 2d vectorw (perpendicular)
-v1 = lp.Vector([1, 0])
-v2 = lp.Vector([1, 1])
-# print(v1.angle_between(v2))
-
-# There are 2 types of triangular matrix: upper triangular and lower triangular
-
-# print(m4.is_identity)
-# print(m5.is_identity)
-# print(m6.is_identity)
-# print(m7.is_identity)
-
-#non symmetric matrix
-m6 = lp.Matrix([[1, 2, 3], 
-                [4, 5, 6],
-                [7, 8, 9]])
-
-# symmetric matrix
-m8 = lp.Matrix([[1, 2, 3], 
-                [2, 4, 5],
-                [3, 5, 6]])
-
-# skew symmetric matrix
-m9 = lp.Matrix([[0, 2, -3], 
-                [-2, 0, 5],
-                [3, -5, 0]])
-print(m6.is_skew_symmetric)
-print(m9.is_skew_symmetric)
-
-
-# anti diagonal matrix
-m10 = lp.Matrix([[0, 0, 1], 
-                [0, 2, 0],
-                [3, 0, 0]])
-
-print(m10.is_anti_diagonal)
+print(m4.is_full_rank)
+print(m5.is_full_rank)
+print(m6.is_full_rank)
+print(m7.is_full_rank)

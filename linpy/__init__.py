@@ -1,5 +1,6 @@
 from .Vector import Vector
 from .Matrix import Matrix
-from .utils import *
+from .independent_utils import *
+from .dependent_utils import *
 
 __all__ = ["Vector", "Matrix"]

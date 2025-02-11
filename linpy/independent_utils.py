@@ -1,8 +1,8 @@
-from typing import List, Tuple
-import math
+from typing import List, Tuple, Iterable
+# Utils that are used by Vector and Matrix classes
 
 def get_shape(data) -> Tuple[int | float]:
-  
+
     def can_find_length(data):
         try:
             len(data)
@@ -65,19 +65,24 @@ def zeros(shape: Tuple[int, int]) -> List[List[int]]:
         raise ValueError("Only 1D and 2D arrays are supported")
 
 
-def can_be_vector(data):
-    shape = get_shape(data)
-    ndim = len(shape)
+def can_be_vector(data:Iterable) -> bool:
+    try:
+        
+        shape = get_shape(data)
+        ndim = len(shape)
 
-    # Check if the vector is 1D
-    ndim_validiton = ndim == 1
+        # Check if the vector is 1D
+        ndim_validiton = ndim == 1
 
-    # Check if all elements in the vector are numbers
-    number_type_validation = all(isinstance(x, (int, float)) for x in data)
+        # Check if all elements in the vector are numbers
+        number_type_validation = all(isinstance(x, (int, float)) for x in data)
 
-    # Check if all elements in the vector are of same type
-    same_type_validation = len(set([type(x).__name__ for x in data])) == 1
+        # Check if all elements in the vector are of same type
+        same_type_validation = len(set([type(x).__name__ for x in data])) == 1
 
+    except Exception as e:
+        raise ValueError("Data must be an iterable")
+    
     if not ndim_validiton:
         raise ValueError(f"A Vector must be 1D, got {ndim}D instead.")
     if not number_type_validation:
@@ -88,22 +93,26 @@ def can_be_vector(data):
     return True
 
 
-def can_be_matrix(data):
-    shape = get_shape(data)
-    ndim = len(shape)
-    # Check if the matrix is 2D
-    ndim_validation = ndim == 2
+def can_be_matrix(data:Iterable[Iterable]) -> bool:
+    try:
+        
+        shape = get_shape(data)
+        ndim = len(shape)
+        # Check if the matrix is 2D
+        ndim_validation = ndim == 2
 
-    # Check if all elements in the matrix are numbers
-    number_type_validation = all(
-        isinstance(element, (int, float)) for row in data for element in row
-    )
+        # Check if all elements in the matrix are numbers
+        number_type_validation = all(
+            isinstance(element, (int, float)) for row in data for element in row
+        )
 
-    # Check if all elements in the matrix are of same type
-    same_type_validation_1 = len(set([type(element).__name__ for element in data])) == 1
-    same_type_validation_2 = (
-        len(set([type(element).__name__ for row in data for element in row])) == 1
-    )
+        # Check if all elements in the matrix are of same type
+        same_type_validation_1 = len(set([type(element).__name__ for element in data])) == 1
+        same_type_validation_2 = (
+            len(set([type(element).__name__ for row in data for element in row])) == 1
+        )
+    except Exception as e:
+        raise ValueError("Data must be an iterable of iterables")
 
     if not ndim_validation:
         raise ValueError(f"A Matrix must be 2D, got {ndim}D instead.")
@@ -114,34 +123,3 @@ def can_be_matrix(data):
 
     return True
 
-
-def apply_transformation_on_vector(matrix, vector):
-    raise NotImplementedError("This function is not implemented yet")
-    can_be_matrix(matrix)
-    can_be_vector(vector)
-
-    matrix_shape = get_shape(matrix)
-    vector_shape = get_shape(vector)
-
-    # ensure shape compability (m, n) * (n,)
-    if matrix_shape[1] != vector_shape[0]:
-        raise Exception(
-            f"Shapes must match (m, n) * (n,), got: {matrix_shape} * {vector_shape}"
-        )
-
-    # each column is a transformed basis vector in the matrix, so we will Transpose it for caluclation purposes
-    matrix = matrix.T
-    
-    new_vector = zeros(shape=vector_shape)
-    a = []
-    for i, element in enumerate(vector):
-        basis_vector = matrix[i]
-        val = [element * x for x in basis_vector]
-        a.append(val)
-        print(val)
-        
-        
-# v1 = [1, 3]
-# m1 = [[1, 3], [2, 4]]
-
-# apply_transformation_on_vector(m1, v1)

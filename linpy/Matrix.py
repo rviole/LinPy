@@ -1,6 +1,7 @@
-from .utils import get_shape, zeros, can_be_matrix, can_be_vector
+from .independent_utils import get_shape, zeros, can_be_matrix, can_be_vector
 from typing import List
 from .Vector import Vector
+import numpy as np
 
 
 # Matrix from vectors + Matrix from 2d list
@@ -291,9 +292,8 @@ class Matrix:
 
     def apply_on_vector(self, vector):
         can_be_vector(vector)
-        vector = Vector(vector)
-        get_shape(vector)
-        matrix = self.data
+        if not isinstance(vector, Vector):
+            vector = Vector(vector)
 
         # ensure shape compability (m, n) * (n,)
         if self.shape[1] != vector.shape[0]:
@@ -354,8 +354,49 @@ class Matrix:
         # because columns are shown as rows in the matrix, we will transpose the matrix
         return Matrix(new_matrix).T
 
+    # using numpy
 
-# added diagonal property
+    @property
+    def rank(self):
+        return np.linalg.matrix_rank(self.data)
+
+    @property
+    def is_full_rank(self):
+        n_cols = self.shape[1]
+        return n_cols == self.rank
+
+    @property
+    def determinant(self):
+        return np.linalg.det(self.data)
+
+    @property
+    def inverse(self):
+        if not self.is_square:
+            raise ValueError("Inverse can only be calculated for square matrices")
+        if not self.is_full_rank:
+            raise ValueError("Inverse can only be calculated for full rank matrices")
+        try:
+            return Matrix(np.linalg.inv(self.data))
+        except np.linalg.LinAlgError:
+            raise ValueError("Matrix is singular, can't calculate inverse")
+
+    @property
+    def is_singular(self):
+        return not self.is_full_rank
+    
+    @property
+    def is_invertable(self):
+        try:
+            self.inverse
+            return True
+        except ValueError:
+            return False
+    
+    
+    
+    # added diagonal property
+
+
 # add anti-diagonal property
 # added is_square property
 # need to add property "is_diagonal" and "is_identity"

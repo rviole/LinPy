@@ -41,9 +41,9 @@ A repository that showcases my knowledge in Linear Algebra.
 - [ ] Apply a linear transformation to a vector
 - [ ] Compose two linear transformations
 - [x] Matrix multiplication
-- [ ] Calculate matrix inverse
-- [ ] Compute matrix determinant
-- [ ] Check if a matrix is invertible
+- [X] Calculate matrix inverse
+- [x] Compute matrix determinant
+- [x] Check if a matrix is invertible
 - [ ] Compute column space of a matrix
 - [ ] Compute row space of a matrix
 - [X] Vector dot product

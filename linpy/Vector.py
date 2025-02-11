@@ -1,5 +1,6 @@
-from .utils import get_shape, can_be_vector, math
+from .independent_utils import get_shape, can_be_vector
 from typing import List
+import math
 
 
 class Vector:
@@ -90,3 +91,5 @@ class Vector:
             theta_degrees = theta_radians * (180 / math.pi)
             return theta_degrees
         return theta_radians
+
+    # using numpy
