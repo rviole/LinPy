@@ -37,8 +37,8 @@ A repository that showcases my knowledge in Linear Algebra.
 - [ ] Check if a set of vectors forms a basis
 - [ ] Verify linear independence of vectors
 - [ ] Compute the span of a set of vectors
-- [-] Check if a matrix represents a linear transformation
-- [ ] Apply a linear transformation to a vector
+- [x] Check if a matrix represents a linear transformation
+- [x] Apply a linear transformation to a vector
 - [ ] Compose two linear transformations
 - [x] Matrix multiplication
 - [X] Calculate matrix inverse
