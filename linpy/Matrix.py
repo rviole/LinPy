@@ -395,3 +395,47 @@ class Matrix:
     @property
     def is_linear_transformation(self):
         return self.is_full_rank
+
+    @property
+    def is_linearly_dependent(self):
+        n_cols = self.shape[1]
+        return not self.rank == n_cols
+
+    @property
+    def span(self):
+        n_cols = self.shape[1]
+
+        output = {
+            "rank": int(self.rank),  # Dimension of the span (rank)
+            "full_span": False,  # Whether the span fills the entire space
+            "zero_span": False,  # Whether the span is trivial (zero vector only)
+        }
+
+        if self.rank == 0:
+            output["zero_span"] = True
+        elif self.is_full_rank:
+            output["full_span"] = True
+
+        return output
+
+    @property
+    def is_basis(self):
+        return not self.is_linearly_dependent
+
+    def is_linear_combination(self, vector: Vector):
+        if not isinstance(vector, Vector):
+            raise ValueError(f"Expected a Vector, got {type(vector).__name__}")
+        if self.shape[0] != vector.shape[0]:
+            raise ValueError(
+                f"Matrix and vector must have same number of rows, got {self.shape[0]} and {vector.shape[0]}"
+            )
+        new_matrix = [v for v in self.T]
+        new_matrix.append(vector.data)
+        print(new_matrix)
+        new_matrix = Matrix(new_matrix)
+        
+        return new_matrix.rank == self.rank
+        
+        
+
+            

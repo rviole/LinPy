@@ -27,7 +27,9 @@ class Vector:
             scalar = other
             return Vector([x * scalar for x in self.data])
         if isinstance(other, Vector):
-            return sum([x * y for x, y in zip(self.data, other.data)])
+            if self.shape != other.shape:
+                raise ValueError(f"Shapes of vectors must match, got {self.shape} and {other.shape}")
+            return [x * y for x, y in zip(self.data, other.data)]
         raise TypeError(
             f"Unsupported operand type(s) for *: 'Vector' and '{type(other).__name__}'"
         )
@@ -57,6 +59,16 @@ class Vector:
     def __neg__(self):
         return Vector([-x for x in self.data])
 
+    def __matmul__(self, other):
+        if isinstance(other, Vector):
+            if self.shape != other.shape:
+                raise ValueError(f"Shapes of vectors must match, got {self.shape} and {other.shape}")
+            return sum([x * y for x, y in zip(self.data, other.data)])
+        raise TypeError(
+            f"Unsupported operand type(s) for *: 'Vector' and '{type(other).__name__}'"
+        )
+        
+    
     @property
     def magnitude(self):
         # return magnitude of the vector
@@ -91,5 +103,4 @@ class Vector:
             theta_degrees = theta_radians * (180 / math.pi)
             return theta_degrees
         return theta_radians
-
     # using numpy
