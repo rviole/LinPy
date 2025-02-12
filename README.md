@@ -97,12 +97,10 @@ v2 = lp.Vector([4, 5, 6])
 m1 = lp.Matrix([[1, 2], [3, 4]])
 m2 = lp.Matrix([[5, 6], [7, 8]])
 ```
+Use LinPy with NumPy
 
-Create vectors from NumPy arrays
-
-```python 
-import numpy as np
-
+```python
+# Create vectors from NumPy arrays
 arr = np.array([1, 2, 3])
 v3 = lp.Vector(arr)
 
