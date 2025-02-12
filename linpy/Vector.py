@@ -162,7 +162,7 @@ class Vector:
             raise ValueError("Both vectors must be of same length")
 
         # cos(theta) = (A o B) / (|A| * |B|)
-        dot_product = self * other
+        dot_product = self @ other
         magnitude_product = self.magnitude * other.magnitude
         cos_theta = dot_product / magnitude_product
 

@@ -64,15 +64,23 @@ import linpy as lp
 ### Creating Vectors and Matrices
 Create a few vectors and matrices:
 ```python
+import linpy as lp
+
 # Create vectors
 v1 = lp.Vector([1, 2, 3])
 v2 = lp.Vector([4, 5, 6])
 
 # Create matrices
-m1 = lp.Matrix([[1, 2], [3, 4]])
-m2 = lp.Matrix([[5, 6], [7, 8]])
+m1 = lp.Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+m2 = lp.Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+```
+
+Using Numpy arrays:
 
 ```python
+import numpy as np
+
 # Create vectors from NumPy arrays
 arr = np.array([1, 2, 3])
 v3 = lp.Vector(arr)
