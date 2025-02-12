@@ -22,46 +22,6 @@ A repository that showcases my knowledge in Linear Algebra.
 
 <br>
 
-## **🚧 Still in Progress**  
-
-## To be Implemented
-- [x] Vector-vector subtraction
-- [x] Vector-scalar multiplication
-- [x] Vector-vector addition
-- [x] Matrix transposition
-- [x] Find matrix diagonal
-- [x] Find matrix anti-diagonal
-- [x] Calculate matrix trace
-- [x] Calculate matrix anti-trace
-- [x] Check if vector is a linear combination of basis vectors
-- [x] Check if a set of vectors forms a basis
-- [x] Verify linear independence of vectors inside matrix
-- [X] Compute the span of a Matrix
-- [x] Check if a matrix represents a linear transformation
-- [x] Apply a linear transformation to a vector
-- [x] Compose two linear transformations
-- [x] Matrix multiplication
-- [x] Calculate matrix inverse
-- [x] Compute matrix determinant
-- [x] Check if a matrix is invertible
-<!-- - [ ] Compute column space of a matrix -->
-<!-- - [ ] Compute row space of a matrix -->
-- [X] Vector dot product
-- [x] Matrix dot product
-- [x] Matrix-vector dot product
-- [x] Compute cross product of two vectors
-- [x] Calculate angle between two vectors
-<!-- - [ ] Compute null space of a matrix -->
-- [ ] Transform a matrix to a new basis
-- [x] Check if a matrix is diagonal
-- [x] Check if a matrix is an identity matrix
-- [x] Check if a matrix is anti-diagonal
-- [x] Check if a matrix is upper triangular
-- [x] Check if a matrix is lower triangular
-- [x] Check if a matrix is symmetric
-- [x] Check if a matrix is skew-symmetric
-- [ ] Implement Transformation class
-
 ## **📖 Description**
 
 LinPy is a Python package that demonstrates a deep understanding of linear algebra concepts through practical implementation. Unlike typical projects that rely on libraries like NumPy, LinPy is built using Python's built-in lists to perform vector and matrix operations, showcasing both theoretical knowledge and practical coding skills.
@@ -70,6 +30,21 @@ Limitations:
 - only int|float components for Vector/Matrix instances are allowed.
 - Vectors can only be 1D -> shape = (n,)
 - Matrix can only be 2D -> shape = (n, m)
+
+
+
+
+
+
+
+
+<!-- Edit the table properties columns -->
+<!-- Test the code and imporve -->
+
+
+
+
+
 
 ## **📦 Usage**
 
@@ -96,7 +71,11 @@ v2 = lp.Vector([4, 5, 6])
 # Create matrices
 m1 = lp.Matrix([[1, 2], [3, 4]])
 m2 = lp.Matrix([[5, 6], [7, 8]])
+```
 
+Using numpy arrays:
+
+```python
 # Create vectors from NumPy arrays
 import numpy as np
 
@@ -190,12 +169,12 @@ print("Is v1 a linear combination of columns of m1? =", m1.is_linear_combination
 
 
 ### **Vector Properties**
-| **Property**                     | **Description**                                      | **Parameters**                          | **Returns**                        |
-|--------------------------------|------------------------------------------------------|-----------------------------------------|------------------------------------|
-| `magnitude`                    | Calculate the magnitude of the vector                | None                                    | `float`                            |
-| `length`                       | Get the length of the vector                         | None                                    | `int`                              |
-| `shape`                        | Get the shape of the vector                          | None                                    | `Tuple[int]`                       |
-| `ndim`                         | Get the number of dimensions of the vector           | None                                    | `int`                              |
+| **Property**                   | **Description**                                      |
+|--------------------------------|------------------------------------------------------|
+| `magnitude`                    | Calculate the magnitude of the vector                |
+| `length`                       | Get the length of the vector                         |
+| `shape`                        | Get the shape of the vector                          |
+| `ndim`                         | Get the number of dimensions of the vector           |
 
 
 
@@ -216,29 +195,35 @@ print("Is v1 a linear combination of columns of m1? =", m1.is_linear_combination
 
 
 ### **Matrix Properties**
-| **Property**                     | **Description**                                      | **Parameters**                          | **Returns**                        |
-|--------------------------------|------------------------------------------------------|-----------------------------------------|------------------------------------|
-| `rank`                         | Calculate the rank of the matrix using NumPy         | None                                    | `int`                              |
-| `is_full_rank`                 | Check if the matrix is of full rank                  | None                                    | `bool`                             |
-| `determinant`                  | Calculate the determinant of the matrix using NumPy  | None                                    | `float`                            |
-| `inverse`                      | Calculate the inverse of the matrix using NumPy      | None                                    | `Matrix`                           |
-| `is_singular`                  | Check if the matrix is singular                      | None                                    | `bool`                             |
-| `is_invertable`                | Check if the matrix is invertible                    | None                                    | `bool`                             |
-| `is_linear_transformation`     | Check if the matrix represents a linear transformation | None                                  | `bool`                             |
-| `is_linearly_dependent`        | Check if the columns of the matrix are linearly dependent | None                                | `bool`                             |
-| `span`                         | Calculate the span of the matrix                     | None                                    | `dict`                             |
-| `is_basis`                     | Check if the columns of the matrix form a basis      | None                                    | `bool`                             |
-| `transpose`                    | Get the transpose of the matrix                      | None                                    | `Matrix`                           |
-| `T`                            | Get the transpose of the matrix (alias)              | None                                    | `Matrix`                           |
-| `diagonal`                     | Get the diagonal elements of the matrix              | None                                    | `Vector`                           |
-| `anti_diagonal`                | Get the anti-diagonal elements of the matrix         | None                                    | `Vector`                           |
-| `trace`                        | Calculate the trace of the matrix                    | None                                    | `Number`                           |
-| `anti_trace`                   | Calculate the anti-trace of the matrix               | None                                    | `Number`                           |
-| `is_symmetric`                 | Check if the matrix is symmetric                     | None                                    | `bool`                             |
-| `is_square`                    | Check if the matrix is square                        | None                                    | `bool`                             |
-| `is_diagonal`                  | Check if the matrix is diagonal                      | None                                    | `bool`                             |
-| `is_anti_diagonal`             | Check if the matrix is anti-diagonal                 | None                                    | `bool`                             |
-| `is_identity`                  | Check if the matrix is an identity matrix            | None                                    | `bool`                             |
-| `is_upper_triangular`          | Check if the matrix is upper triangular              | None                                    | `bool`                             |
-| `is_lower_triangular`          | Check if the matrix is lower triangular              | None                                    | `bool`                             |
-| `is_skew_symmetric`            | Check if the matrix is skew-symmetric                | None                                    | `bool`                             |
+| **Property**                     | **Description**                                      |
+|--------------------------------|------------------------------------------------------|
+| `rank`                         | Calculate the rank of the matrix using NumPy         |
+| `is_full_rank`                 | Check if the matrix is of full rank                  |
+| `determinant`                  | Calculate the determinant of the matrix using NumPy  |
+| `inverse`                      | Calculate the inverse of the matrix using NumPy      |
+| `is_singular`                  | Check if the matrix is singular                      |
+| `is_invertable`                | Check if the matrix is invertible                    |
+| `is_linear_transformation`     | Check if the matrix represents a linear transformation |
+| `is_linearly_dependent`        | Check if the columns of the matrix are linearly dependent | 
+| `span`                         | Calculate the span of the matrix                     |
+| `is_basis`                     | Check if the columns of the matrix form a basis      |
+| `transpose`                    | Get the transpose of the matrix                      |
+| `T`                            | Get the transpose of the matrix (alias)              |
+| `diagonal`                     | Get the diagonal elements of the matrix              |
+| `anti_diagonal`                | Get the anti-diagonal elements of the matrix         |
+| `trace`                        | Calculate the trace of the matrix                    |
+| `anti_trace`                   | Calculate the anti-trace of the matrix               |
+| `is_symmetric`                 | Check if the matrix is symmetric                     |
+| `is_square`                    | Check if the matrix is square                        |
+| `is_diagonal`                  | Check if the matrix is diagonal                      |
+| `is_anti_diagonal`             | Check if the matrix is anti-diagonal                 |
+| `is_identity`                  | Check if the matrix is an identity matrix            |
+| `is_upper_triangular`          | Check if the matrix is upper triangular              |
+| `is_lower_triangular`          | Check if the matrix is lower triangular              |
+| `is_skew_symmetric`            | Check if the matrix is skew-symmetric                |
+
+
+
+
+
+
