@@ -40,11 +40,11 @@ try:
     print("Inverse of m3:\n", m3.inverse)  # Should raise an error
 except ValueError as e:
     print(e)
-  
+
 # Test is_singular property
 print("Is m3 singular:", m3.is_singular)  # Should be True
 print("Is m4 singular:", m4.is_singular)  # Should be False
- 
+
 # Test is_invertable property
 print("Is m3 invertable:", m3.is_invertable)  # Should be False
 print("Is m4 invertable:", m4.is_invertable)  # Should be True
@@ -53,26 +53,21 @@ print("Is m4 invertable:", m4.is_invertable)  # Should be True
 print("Is m3 a linear transformation:", m3.is_linear_transformation)  # Should be False
 print("Is m4 a linear transformation:", m4.is_linear_transformation)  # Should be True
 
-v1 = lp.Vector([1,2,3])
+v1 = lp.Vector([1, 2, 3])
 v2 = lp.Vector([2, 3, 4])
 print(v1 @ v2)
 print(v1 * v2)
 
 
-v1 = lp.Vector([1, 0 ,0])
-v2 = lp.Vector([0, 1 ,0])
-v3 = lp.Vector([0, 0 ,1])
-v4 = lp.Vector([1, 1 ,1])
-basis = lp.matrix_from_vectors(v1, v2)
+v1 = lp.Vector([1, 0, 0])
+v2 = lp.Vector([0, 1, 0])
+v3 = lp.Vector([0, 0, 1])
+
+basis = lp.matrix_from_vectors(v1, v2, v3)
 print(basis)
-print(basis.is_basis)
+print(basis)
 
-print(basis.is_linear_combination(v3))
 
-# check composition funciton
-m1 = lp.Matrix([[1, 2], [3, 4]])
-m2 = lp.Matrix([[5, 6], [7, 8]])
-
-compostion = m1.compose(m2)
-print(compostion)
-print(m1 @  m2)
+a = np.array([1, 2, 3])
+# a = lp.Vector([1, 2, 3])
+print(a, lp.Vector(a))

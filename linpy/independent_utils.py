@@ -1,7 +1,8 @@
 from typing import List, Tuple, Iterable
+import numbers
 # Utils that are used by Vector and Matrix classes
 
-def get_shape(data) -> Tuple[int | float]:
+def get_shape(data) -> Tuple[numbers.Number]:
 
     def can_find_length(data):
         try:
@@ -75,7 +76,7 @@ def can_be_vector(data:Iterable) -> bool:
         ndim_validiton = ndim == 1
 
         # Check if all elements in the vector are numbers
-        number_type_validation = all(isinstance(x, (int, float)) for x in data)
+        number_type_validation = all(isinstance(x, numbers.Number) for x in data)
 
         # Check if all elements in the vector are of same type
         same_type_validation = len(set([type(x).__name__ for x in data])) == 1
@@ -103,7 +104,7 @@ def can_be_matrix(data:Iterable[Iterable]) -> bool:
 
         # Check if all elements in the matrix are numbers
         number_type_validation = all(
-            isinstance(element, (int, float)) for row in data for element in row
+            isinstance(element, numbers.Number) for row in data for element in row
         )
 
         # Check if all elements in the matrix are of same type

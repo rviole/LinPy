@@ -2,11 +2,30 @@ from .independent_utils import get_shape, zeros, can_be_matrix, can_be_vector
 from typing import List
 from .Vector import Vector
 import numpy as np
-
+from numbers import Number
 
 # Matrix from vectors + Matrix from 2d list
 class Matrix:
-    def __init__(self, data: List[List[int | float]]):
+    """
+    A class used to represent a Matrix.
+
+    Attributes:
+    ----------
+    data : List[List[Number]]
+        A 2D list containing the elements of the matrix.
+
+    Methods:
+    -------
+    Various methods to perform matrix operations such as addition, subtraction, multiplication,
+    transposition, inversion, and more.
+
+    Usage:
+    -----
+    This class is designed to perform matrix operations without relying on external libraries
+    like NumPy. It supports basic operations and some advanced linear algebra concepts.
+    """
+
+    def __init__(self, data: List[List[Number]]):
 
         can_be_matrix(data)
         self.data = data
@@ -52,7 +71,7 @@ class Matrix:
             return self.apply_on_vector(other)
 
         # Scalar multiplication
-        elif isinstance(other, (int, float)):
+        elif isinstance(other, Number):
             new_matrix = zeros(shape=self.shape)
             for i, row in enumerate(self.data):
                 for j, element in enumerate(row):
@@ -68,7 +87,7 @@ class Matrix:
             raise ValueError(
                 "Must be `MATRIX x VECTOR` or `MATRIX x MATRIX` multiplication, not `VECTOR x MATRIX`"
             )
-        if isinstance(other, (int, float)):
+        if isinstance(other, Number):
             return self.__mul__(other)
 
         raise TypeError(
@@ -159,7 +178,6 @@ class Matrix:
             raise ValueError(
                 f"Non-square matrix doesn't have an anti-diagonal, got shape {self.shape}"
             )
-        # anti
         anti_digonal_length = self.shape[0]
         anti_diagonal_vector = zeros(shape=(anti_digonal_length,))
 
@@ -302,6 +320,19 @@ class Matrix:
         return self == -self.T
 
     def apply_on_vector(self, vector):
+        """
+        Apply the matrix as a linear transformation on a vector.
+
+        Parameters:
+        ----------
+        vector : Vector
+            The vector to be transformed.
+
+        Returns:
+        -------
+        Vector
+            The transformed vector.
+        """
         can_be_vector(vector)
         if not isinstance(vector, Vector):
             vector = Vector(vector)
@@ -335,6 +366,19 @@ class Matrix:
         return Vector(new_vector)
 
     def apply_on_matrix(self, matrix):
+        """
+        Apply the matrix as a linear transformation on another matrix.
+
+        Parameters:
+        ----------
+        matrix : Matrix
+            The matrix to be transformed.
+
+        Returns:
+        -------
+        Matrix
+            The transformed matrix.
+        """
         # dot product of two matrices
         can_be_matrix(matrix)
         matrix = Matrix(matrix)
@@ -366,9 +410,22 @@ class Matrix:
         return Matrix(new_matrix).T
 
     def compose(self, *matrices):
+        """
+        Compose the current matrix with one or more matrices.
+
+        Parameters:
+        ----------
+        *matrices : Matrix
+            One or more matrices to compose with the current matrix.
+
+        Returns:
+        -------
+        Matrix
+            The resulting matrix after composition.
+        """
         # m1.compose(m2, m3, m4) = m1 @ m2 @ m3 @ m4
         # f.compose(g, h ) = f(g(h(x)))
-        
+
         if not all([isinstance(matrix, Matrix) for matrix in matrices]):
             raise ValueError("All arguments must be of type Matrix")
         if not all([self.shape[1] == matrix.shape[0] for matrix in matrices]):
@@ -384,19 +441,56 @@ class Matrix:
 
     @property
     def rank(self):
+        """
+        Calculate the rank of the matrix using NumPy.
+
+        Returns:
+        -------
+        int
+            The rank of the matrix.
+        """
         return np.linalg.matrix_rank(self.data)
 
     @property
     def is_full_rank(self):
+        """
+        Check if the matrix is of full rank.
+
+        Returns:
+        -------
+        bool
+            True if the matrix is of full rank, False otherwise.
+        """
         n_cols = self.shape[1]
         return n_cols == self.rank
 
     @property
     def determinant(self):
+        """
+        Calculate the determinant of the matrix using NumPy.
+
+        Returns:
+        -------
+        float
+            The determinant of the matrix.
+        """
         return np.linalg.det(self.data)
 
     @property
     def inverse(self):
+        """
+        Calculate the inverse of the matrix using NumPy.
+
+        Returns:
+        -------
+        Matrix
+            The inverse of the matrix.
+
+        Raises:
+        ------
+        ValueError
+            If the matrix is not square or not of full rank.
+        """
         if not self.is_square:
             raise ValueError("Inverse can only be calculated for square matrices")
         if not self.is_full_rank:
@@ -408,10 +502,26 @@ class Matrix:
 
     @property
     def is_singular(self):
+        """
+        Check if the matrix is singular (not of full rank).
+
+        Returns:
+        -------
+        bool
+            True if the matrix is singular, False otherwise.
+        """
         return not self.is_full_rank
 
     @property
     def is_invertable(self):
+        """
+        Check if the matrix is invertible.
+
+        Returns:
+        -------
+        bool
+            True if the matrix is invertible, False otherwise.
+        """
         try:
             self.inverse
             return True
@@ -420,15 +530,39 @@ class Matrix:
 
     @property
     def is_linear_transformation(self):
+        """
+        Check if the matrix represents a linear transformation.
+
+        Returns:
+        -------
+        bool
+            True if the matrix represents a linear transformation, False otherwise.
+        """
         return self.is_full_rank
 
     @property
     def is_linearly_dependent(self):
+        """
+        Check if the columns of the matrix are linearly dependent.
+
+        Returns:
+        -------
+        bool
+            True if the columns are linearly dependent, False otherwise.
+        """
         n_cols = self.shape[1]
         return not self.rank == n_cols
 
     @property
     def span(self):
+        """
+        Calculate the span of the matrix.
+
+        Returns:
+        -------
+        dict
+            A dictionary containing the rank, full_span, and zero_span of the matrix.
+        """
         n_cols = self.shape[1]
 
         output = {
@@ -446,9 +580,30 @@ class Matrix:
 
     @property
     def is_basis(self):
+        """
+        Check if the columns of the matrix form a basis.
+
+        Returns:
+        -------
+        bool
+            True if the columns form a basis, False otherwise.
+        """
         return not self.is_linearly_dependent
 
     def is_linear_combination(self, vector: Vector):
+        """
+        Check if a vector is a linear combination of the columns of the matrix.
+
+        Parameters:
+        ----------
+        vector : Vector
+            The vector to check.
+
+        Returns:
+        -------
+        bool
+            True if the vector is a linear combination of the columns, False otherwise.
+        """
         if not isinstance(vector, Vector):
             raise ValueError(f"Expected a Vector, got {type(vector).__name__}")
         if self.shape[0] != vector.shape[0]:

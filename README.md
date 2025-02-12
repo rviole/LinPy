@@ -44,14 +44,14 @@ A repository that showcases my knowledge in Linear Algebra.
 - [x] Calculate matrix inverse
 - [x] Compute matrix determinant
 - [x] Check if a matrix is invertible
-- [ ] Compute column space of a matrix
-- [ ] Compute row space of a matrix
+<!-- - [ ] Compute column space of a matrix -->
+<!-- - [ ] Compute row space of a matrix -->
 - [X] Vector dot product
 - [x] Matrix dot product
 - [x] Matrix-vector dot product
-- [ ] Compute cross product of two vectors
+- [x] Compute cross product of two vectors
 - [x] Calculate angle between two vectors
-- [ ] Compute null space of a matrix
+<!-- - [ ] Compute null space of a matrix -->
 - [ ] Transform a matrix to a new basis
 - [x] Check if a matrix is diagonal
 - [x] Check if a matrix is an identity matrix
@@ -62,41 +62,51 @@ A repository that showcases my knowledge in Linear Algebra.
 - [x] Check if a matrix is skew-symmetric
 - [ ] Implement Transformation class
 
-
-
-
 ## **📖 Description**
 
 LinPy is a Python package that demonstrates a deep understanding of linear algebra concepts through practical implementation. Unlike typical projects that rely on libraries like NumPy, LinPy is built using Python's built-in lists to perform vector and matrix operations, showcasing both theoretical knowledge and practical coding skills.
-
 
 Limitations:
 - only int|float components for Vector/Matrix instances are allowed.
 - Vectors can only be 1D -> shape = (n,)
 - Matrix can only be 2D -> shape = (n, m)
 
-<!-- ---
-## Personal Notes
-This is the list of functions the repo will probably have:
+## **📚 Available Methods**
 
-4. `is_linear_combination(vector, basis_vectors)`
+### **General Utilities**
+| **Function**                   | **Description**                                      | **Parameters**                          | **Returns**                        |
+|--------------------------------|------------------------------------------------------|-----------------------------------------|------------------------------------|
+| `get_shape(data)`              | Get the shape of the data                            | `data: Iterable`                        | `Tuple[int]`                       |
+| `zeros(shape)`                 | Create a zero matrix of given shape                  | `shape: Tuple[int, int]`                | `List[List[int]]`                  |
+| `can_be_vector(data)`          | Validate if data can be a vector                     | `data: Iterable`                        | `bool`                             |
+| `can_be_matrix(data)`          | Validate if data can be a matrix                     | `data: Iterable[Iterable]`              | `bool`                             |
 
-10. `compose_transformations(matrix1, matrix2)`
+### **Vector Methods**
+| **Method**                     | **Description**                                      | **Parameters**                          | **Returns**                        |
+|--------------------------------|------------------------------------------------------|-----------------------------------------|------------------------------------|
+| `__init__(data)`               | Initialize a vector                                  | `data: List[Number]`                    | `None`                             |
+| `angle_between(other, in_degrees)` | Calculate the angle between two vectors         | `other: Vector, in_degrees: bool`       | `float`                            |
+| `magnitude`                    | Calculate the magnitude of the vector                | None                                    | `float`                            |
+| `length`                       | Get the length of the vector                         | None                                    | `int`                              |
+| `shape`                        | Get the shape of the vector                          | None                                    | `Tuple[int]`                       |
+| `ndim`                         | Get the number of dimensions of the vector           | None                                    | `int`                              |
+| `cross_product(other)`         | Calculate the cross product with another vector      | `other: Vector`                         | `Vector`                           |
 
-### Utility Classes
-21. `Vector`
-22. `Matrix`
-23. `Transformation`
-
-### Advanced Concepts
-24. `calculate_column_space(matrix)`
-25. `calculate_row_space`
-
-### Dot and Cross Products
-28. `matrix_vector_dot`
-29. `cross_product(v1, v2)`
-30. `angle_between_vectors(v1, v2)`
-
-31. `null_space(matrix)`
-32. `change_of_basis(matrix, new_basis)`
- -->
+### **Matrix Methods**
+| **Method**                     | **Description**                                      | **Parameters**                          | **Returns**                        |
+|--------------------------------|------------------------------------------------------|-----------------------------------------|------------------------------------|
+| `__init__(data)`               | Initialize a matrix                                  | `data: List[List[Number]]`              | `None`                             |
+| `apply_on_vector(vector)`      | Apply the matrix as a linear transformation on a vector | `vector: Vector`                     | `Vector`                           |
+| `apply_on_matrix(matrix)`      | Apply the matrix as a linear transformation on another matrix | `matrix: Matrix`                 | `Matrix`                           |
+| `compose(*matrices)`           | Compose the current matrix with one or more matrices | `*matrices: Matrix`                    | `Matrix`                           |
+| `rank`                         | Calculate the rank of the matrix using NumPy         | None                                    | `int`                              |
+| `is_full_rank`                 | Check if the matrix is of full rank                  | None                                    | `bool`                             |
+| `determinant`                  | Calculate the determinant of the matrix using NumPy  | None                                    | `float`                            |
+| `inverse`                      | Calculate the inverse of the matrix using NumPy      | None                                    | `Matrix`                           |
+| `is_singular`                  | Check if the matrix is singular                      | None                                    | `bool`                             |
+| `is_invertable`                | Check if the matrix is invertible                    | None                                    | `bool`                             |
+| `is_linear_transformation`     | Check if the matrix represents a linear transformation | None                                  | `bool`                             |
+| `is_linearly_dependent`        | Check if the columns of the matrix are linearly dependent | None                                | `bool`                             |
+| `span`                         | Calculate the span of the matrix                     | None                                    | `dict`                             |
+| `is_basis`                     | Check if the columns of the matrix form a basis      | None                                    | `bool`                             |
+| `is_linear_combination(vector)`| Check if a vector is a linear combination of the columns of the matrix | `vector: Vector`              | `bool`                             |
