@@ -75,6 +75,17 @@ class Matrix:
             f"Unsupported operand type(s) for *: 'Matrix' and '{type(other).__name__}'"
         )
 
+    def __matmul__(self, other):
+        # Matrix multiplication
+        if isinstance(other, Matrix):
+            if self.shape[1] != other.shape[0]:
+                raise ValueError(
+                    f"Matrix multiplication not possible with shapes {self.shape} and {other.shape}. Need (m x n) and (n x p)"
+                )
+            # Finding a dot product of two matrices
+
+            return self.apply_on_matrix(other)
+
     def __str__(self):
         output = "Matrix["
         for row in self.data:
@@ -354,6 +365,21 @@ class Matrix:
         # because columns are shown as rows in the matrix, we will transpose the matrix
         return Matrix(new_matrix).T
 
+    def compose(self, *matrices):
+        # m1.compose(m2, m3, m4) = m1 @ m2 @ m3 @ m4
+        # f.compose(g, h ) = f(g(h(x)))
+        
+        if not all([isinstance(matrix, Matrix) for matrix in matrices]):
+            raise ValueError("All arguments must be of type Matrix")
+        if not all([self.shape[1] == matrix.shape[0] for matrix in matrices]):
+            raise ValueError("Shapes of matrices are not compatible for composition")
+
+        # Compose matrices
+        result = self
+        for matrix in matrices:
+            result = result @ matrix
+        return result
+
     # using numpy
 
     @property
@@ -433,9 +459,5 @@ class Matrix:
         new_matrix.append(vector.data)
         print(new_matrix)
         new_matrix = Matrix(new_matrix)
-        
-        return new_matrix.rank == self.rank
-        
-        
 
-            
+        return new_matrix.rank == self.rank
